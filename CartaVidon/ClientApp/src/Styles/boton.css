@@ -1,0 +1,67 @@
+﻿@media (max-width:767px) {
+
+}
+
+
+@media (min-width: 768px) and (max-width: 1023px) {
+
+}
+
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+
+}
+
+
+@media (min-width: 1200px) {
+
+}
+
+
+
+:root {
+    --clr: #f0deaf;
+    --clrp: #1b8547;
+}
+
+@font-face {
+    font-family: 'vintage';
+    src: url('../Assets/fuentes/VINTAGE_FAIR.TTF');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.boton_container {
+    position: absolute;
+    display: flex;
+}
+
+.btn {
+    padding: 10px;
+    border-radius: 15px;
+    border: 4px solid var(--clr);
+    text-decoration: none;
+    box-shadow: -2px 2px 0px var(--clrp), -4px 4px 0px var(--clr);
+    background-color: var(--clrp);
+    width: 170px;
+}
+
+    .btn:hover {
+        background: var(--clr);
+    }
+
+    .btn .textBtn {
+        font-family: vintage;
+        color: var(--clr);
+        font-size: 20px;
+    }
+
+    .btn:hover .textBtn {
+        color: var(--clrp);
+        text-transform: lowercase;
+        text-decoration: underline;
+    }
+
+    .btn:active {
+        transform: scale(0.9); /* Hacer que el botón se vea más pequeño */
+    }

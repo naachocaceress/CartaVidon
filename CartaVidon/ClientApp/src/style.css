@@ -1,0 +1,9 @@
+﻿.container-fluid {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    /*background-image: url('./Assets/img/background-pergamino.jpg');*/
+    background-color: #f0deaf;
+    background-size: cover;
+    background-position: center;
+}
