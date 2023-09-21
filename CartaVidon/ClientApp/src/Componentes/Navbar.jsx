@@ -11,8 +11,8 @@ const Navbar = () => {
     // Función para desplazar el div hacia arriba.
     const handleScrollUp = () => {
 
-        document.querySelector(".divBotones").style.height = "60%";
-        const newScrollY = scrollY - 590; // Cambia 100 según tus necesidades.
+        
+        const newScrollY = scrollY - 1000; // Cambia 100 según tus necesidades.
 
         // Actualiza el estado para cambiar la posición del div.
         setScrollY(newScrollY);
@@ -26,6 +26,10 @@ const Navbar = () => {
 
             <div className="divLogo">
                 <img src={imagenes.logo2} alt='Logo central' className='img-circulo' />
+            </div>
+
+            <div className="divInfo">
+                <img src={imagenes.wave1} alt='wave del fondo' className='wave2' />
             </div>
 
             <div className="contenedor_btn" style={{ transform: `translateY(${scrollY}px)` }}>
@@ -52,7 +56,6 @@ const Navbar = () => {
                     </div>
                 </div>
 
-                {/*<img src={imagenes.wave1} alt='wave del fondo' className='wave' />*/}
 
             </div>
 

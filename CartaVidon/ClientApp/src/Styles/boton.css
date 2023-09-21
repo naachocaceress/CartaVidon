@@ -4,17 +4,23 @@
 
 
 @media (min-width: 768px) and (max-width: 1023px) {
-
+    .boton_container {
+        transform: scale(1.1);
+    }
 }
 
 
 @media (min-width: 1024px) and (max-width: 1199px) {
-
+    .boton_container {
+        transform: scale(1.1);
+    }
 }
 
 
 @media (min-width: 1200px) {
-
+    .boton_container {
+        transform: scale(1.1);
+    }
 }
 
 

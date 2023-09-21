@@ -1,13 +1,22 @@
 ﻿import logo_viejo from './img/logo_circulo.png';
 import logo_2023 from './img/logo vidon 2023.png';
-import fondo1_pergamino from './img/background-pergamino.jpg';
-import wave from './img/wave.png';
+import wave from './img/waves3.png';
+import hambur from './img/hamburguesas.jpg';
+import lomos from './img/lomos.jpg';
+import papas from './img/papas.jpg';
+import tostados from './img/tostados.jpg';
+
+
+
 
 
 export default {
     logo1: logo_viejo,
     logo2: logo_2023,
-    fondo1: fondo1_pergamino,
-    wave1: wave
+    wave1: wave,
+    hamburEj: hambur,
+    lomoEj: lomos,
+    papasEj: papas,
+    tostadosEj: tostados
 
 }
