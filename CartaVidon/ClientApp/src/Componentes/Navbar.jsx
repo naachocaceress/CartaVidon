@@ -24,9 +24,7 @@ const Navbar = () => {
     return (
         <div className="navbar_container">
 
-            <div className="divLogo">
-                <img src={imagenes.logo2} alt='Logo central' className='img-circulo' />
-            </div>
+            
 
             <div className="divInfo">
                 <img src={imagenes.wave1} alt='wave del fondo' className='wave2' />

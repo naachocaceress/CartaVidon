@@ -7,3 +7,11 @@
     background-size: cover;
     background-position: center;
 }
+
+.img-circulo {
+    margin-top: 15px;
+    width: 100px;
+    height: 100px;
+    border-radius: 60%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}

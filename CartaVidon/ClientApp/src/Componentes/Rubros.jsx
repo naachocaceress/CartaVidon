@@ -7,14 +7,14 @@ const Rubros = ({ texto, img }) => {
     return (
         <div className="rubros_container">
 
-            <div className="rbr">
+            <a href="#" className="rbr">
                 <div className="imagenRubro">
                     <img src={img} alt="Rubros" className="imgRubros"></img>
                 </div>
                 <div className="tituloRubro">
                     ~{texto}~
                 </div>
-            </div>
+            </a>
 
         </div>
     )

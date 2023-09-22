@@ -7,21 +7,21 @@
 
 @media (min-width: 768px) and (max-width: 1023px) {
     .rubros_container {
-        transform: scale(1.2);
+        transform: scale(1);
     }
 }
 
 
 @media (min-width: 1024px) and (max-width: 1199px) {
     .rubros_container {
-        transform: scale(1.5);
+        transform: scale(1);
     }
 }
 
 
 @media (min-width: 1200px) {
     .rubros_container {
-        transform: scale(1.5);
+        transform: scale(1);
     }
 }
 
@@ -32,8 +32,8 @@
 }
 
 .rubros_container {
-    position: absolute;
 }
+
 .rbr {
     padding: 10px;
     background-color: var(--clr);
@@ -46,11 +46,13 @@
     flex-direction: column; /* Apilar elementos verticalmente */
     align-items: center; /* Centrar horizontalmente */
     justify-content: space-between; /* Alinear el título en la parte inferior */
+    text-decoration:none;
+    color: var(--clrs);
 }
 
 .imagenRubro {
     padding: 0;
-    border-radius: 15px;
+    border-radius: 5px;
     border: 2px solid var(--clrs);
     width: 130px;
     height: 130px;
