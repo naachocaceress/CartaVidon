@@ -16,16 +16,20 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Proyectos\Vidon Bar\Carta Vidon\CartaVidon\CargarDatos\CargarCarta\CargarCarta
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Proyectos/Vidon Bar/Carta Vidon/CartaVidon/CargarDatos/CargarCarta/CargarCarta/Views/Home/Cargar_Rubros.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDYXJnYXJfUnVicm9zLmNzaHRtbA==
+[C:/Proyectos/Vidon Bar/Carta Vidon/CartaVidon/CargarDatos/CargarCarta/CargarCarta/Views/Carta/Articulos.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydGFcQXJ0aWN1bG9zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Proyectos/Vidon Bar/Carta Vidon/CartaVidon/CargarDatos/CargarCarta/CargarCarta/Views/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+[C:/Proyectos/Vidon Bar/Carta Vidon/CartaVidon/CargarDatos/CargarCarta/CargarCarta/Views/Carta/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydGFcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Proyectos/Vidon Bar/Carta Vidon/CartaVidon/CargarDatos/CargarCarta/CargarCarta/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+[C:/Proyectos/Vidon Bar/Carta Vidon/CartaVidon/CargarDatos/CargarCarta/CargarCarta/Views/Carta/Precios.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydGFcUHJlY2lvcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Proyectos/Vidon Bar/Carta Vidon/CartaVidon/CargarDatos/CargarCarta/CargarCarta/Views/Carta/Rubros.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydGFcUnVicm9zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Proyectos/Vidon Bar/Carta Vidon/CartaVidon/CargarDatos/CargarCarta/CargarCarta/Views/Shared/Error.cshtml]

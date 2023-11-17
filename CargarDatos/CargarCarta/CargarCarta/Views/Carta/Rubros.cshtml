@@ -1,0 +1,305 @@
+﻿@model CargarCarta.Controllers.CartaController.GestionViewModel
+
+@{
+    ViewData["Title"] = "Gestion Rubros";
+}
+
+<div class="container px-2 py-5">
+    <h2 class="pb-2 border-bottom">Gestion Rubros</h2>
+
+    <div class="row g-5 py-5 row-cols-1 row-cols-lg-3">
+        <div class="feature col">
+            <h3 class="fs-2 text-center">Rubros</h3>
+
+            <form id="myForm" asp-action="CargarRubro" method="POST">
+
+                <div class="col-sm-12">
+                    <label for="Nombre" class="form-label">Nombre</label>
+                    <input asp-for="Rubro.Nombre" type="text" class="form-control" required>
+                </div>
+
+                <br />
+
+                <button id="myButton" type="submit" class="w-100 btn btn-lg" style="background-color: #0c8444; color: white;">
+                    <span class="button-text">Guardar</span>
+                    <span class="spinner-border" aria-hidden="true" style="display: none;"></span>
+                </button>
+
+            </form>
+
+            <br /> <br />
+
+            <div class="table-responsive">
+
+                @if (Model.RubroTabla.Count() > 0)
+                {
+                    <table class="table table-striped text-center tblRubros" style="width:100%; overflow-x:auto;" id="tblRubros" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th style="width:140px;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var rubro in Model.RubroTabla)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(m => rubro.IdRubro)</td>
+                                    <td>@Html.DisplayFor(m => rubro.Nombre)</td>
+                                    <td>
+                                        <a class="btn btn-outline-primary btn-sm" asp-action="EditarRubro" asp-rout-item-id="@rubro.IdRubro">Editar</a>
+                                        <button class="btn btn-outline-danger btn-sm delete-btn" data-id="@rubro.IdRubro" data-name="@rubro.Nombre">Borrar</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                }
+                else
+                {
+                    <br />
+                    <h4 class="text-center">Sin resultados aún</h4>
+                }
+
+
+            </div>
+
+        </div>
+
+        <!-- ------------------------------------------------------------------------------------- -->
+
+        <div class="feature col">
+            <h3 class="fs-2 text-center">Subrubros</h3>
+
+            <form id="myForm2" asp-action="CargarSubrubro" method="POST">
+
+
+                <div class="col-sm-12">
+                    <label for="Nombre" class="form-label">Nombre</label>
+                    <input asp-for="Subrubro.Nombre" type="text" class="form-control" required>
+                </div>
+                <br />
+                <div class="col-sm-12">
+                    <label for="Nombre" class="form-label">Rubro</label>
+                    @if (Model.RubroTabla != null)
+                    {
+                        <select asp-for="Subrubro.IdRubro" asp-items="@(new SelectList(Model.RubroTabla, nameof(Rubro.IdRubro), nameof(Rubro.Nombre)))" class="form-select" aria-label="Default select example" required>
+                        </select>
+                    }
+                    else
+                    {
+                        <p>No hay datos disponibles para el SelectList.</p>
+                    }
+                </div>
+
+
+                <br />
+
+                <button id="myButton2" type="submit" class="w-100 btn btn-lg" style="background-color: #0c8444; color: white;">
+                    <span class="button-text">Guardar</span>
+                    <span class="spinner-border" aria-hidden="true" style="display: none;"></span>
+                </button>
+
+            </form>
+
+            <br /> <br />
+
+            <div class="table-responsive">
+
+                @if (Model.SubrubroTabla.Count() > 0)
+                {
+
+                    <table class="table table-striped text-center tblRubros" style="width:100%; overflow-x:auto;" id="tblSubRubros" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Rubro</th>
+                                <th style="width:140px;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var subrubro in Model.SubrubroTabla)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(m => subrubro.IdSubrubro)</td>
+                                    <td>@Html.DisplayFor(m => subrubro.Nombre)</td>
+                                    <td>@Html.DisplayFor(m => subrubro.oRubro.Nombre)</td>
+                                    <td>
+                                        <a class="btn btn-outline-primary btn-sm" asp-action="EditarSubrubro" asp-rout-item-id="@subrubro.IdSubrubro">Editar</a>
+                                        <a class="btn btn-outline-danger btn-sm" asp-action="BorrarSubrubro" asp-rout-item-id="@subrubro.IdSubrubro">Borrar</a>
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <br />
+                    <h4 class="text-center">Sin resultados aún</h4>
+                }
+
+            </div>
+
+        </div>
+
+        <!-- ------------------------------------------------------------------------------------- -->
+
+        <div class="feature col">
+            <h3 class="fs-2 text-center">Etiquetas</h3>
+
+            <form id="myForm3" asp-action="CargarEtiqueta" method="POST">
+
+
+                <div class="col-sm-12">
+                    <label for="Nombre" class="form-label">Nombre</label>
+                    <input asp-for="Etiqueta.Nombre" type="text" class="form-control" required>
+                </div>
+
+                <br />
+
+                <button id="myButton3" type="submit" class="w-100 btn btn-lg" style="background-color: #0c8444; color: white;">
+                    <span class="button-text">Guardar</span>
+                    <span class="spinner-border" aria-hidden="true" style="display: none;"></span>
+                </button>
+
+            </form>
+
+            <br /> <br />
+
+            <div class="table-responsive">
+
+                @if (Model.EtiquetaTabla.Count() > 0)
+                {
+                    <table class="table table-striped text-center tblRubros" style="width:100%; overflow-x:auto;" id="tblRubros" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th style="width:140px;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var etiqueta in Model.EtiquetaTabla)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(m => etiqueta.IdEtiqueta)</td>
+                                    <td>@Html.DisplayFor(m => etiqueta.Nombre)</td>
+                                    <td>
+                                        <a class="btn btn-outline-primary btn-sm" asp-action="EditarRubro" asp-rout-item-id="@etiqueta.IdEtiqueta">Editar</a>
+                                        <a class="btn btn-outline-danger btn-sm" asp-action="BorrarRubro" asp-rout-item-id="@etiqueta.IdEtiqueta">Borrar</a>
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <br />
+                    <h4 class="text-center">Sin resultados aún</h4>
+                }
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="confirmModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center">¿Estás seguro de que deseas eliminar el rubro: <strong><label id="rubroName"></label></strong>?</h5>
+                </div>
+                <div class="modal-body">
+                    <p> Ten en cuenta que los subrubros quedarán sin rubro en caso de que este sea el suyo.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="confirm">Aceptar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<style>
+
+    .row {
+        display: flex;
+    }
+
+    .col-sm-12.col-md-5 {
+        flex-grow: 1;
+        text-align: center;
+    }
+
+    .col-sm-12.col-md-7 {
+        display: none;
+    }
+
+
+    .dataTables_filter {
+        text-align: center;
+        padding: 5px;
+    }
+
+    #tblRubros {
+        border: 1px solid #f2f2f2; /* Borde negro de 2 píxeles */
+    }
+</style>
+
+
+@section Scripts{
+
+    <script>
+
+        $(document).ready(function () {
+            var table = $('.tblRubros').DataTable({
+                "paging": false, // Desactiva la paginación
+                "language": {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
+                    "infoFiltered": "(filtrado de _MAX_ entradas en total)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar",
+                    "zeroRecords": "Sin resultados encontrados"
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            // Al hacer clic en el botón de borrar, muestra el modal
+            $('.delete-btn').click(function () {
+                var id = $(this).data('id');
+                var name = $(this).data('name');
+                $('#confirmModal').data('id', id).modal('show');
+                $('#rubroName').text(name);  // Actualiza el nombre del rubro en el modal
+            });
+
+            // Al hacer clic en el botón "Aceptar" del modal, envía la solicitud de eliminación
+            $('#confirm').click(function () {
+                var id = $('#confirmModal').data('id');
+                $.post('/Carta/BorrarRubro', { IdRubro: id }, function () {
+                    // Aquí puedes actualizar tu tabla para reflejar que el rubro ha sido borrado
+                    $('#confirmModal').modal('hide');
+                });
+            });
+        });
+
+    </script>
+    }
