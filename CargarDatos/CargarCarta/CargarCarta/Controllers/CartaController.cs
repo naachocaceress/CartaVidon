@@ -91,6 +91,26 @@ namespace CargarCarta.Controllers
             return RedirectToAction(nameof(Rubros));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> EditarRubro(int? IdRubro, string Nombre)  // Recibe el nuevo nombre como parámetro
+        {
+            if (IdRubro == null)
+            {
+                return NotFound();
+            }
+
+            var rubro = _VContext.Rubros.Find(IdRubro);
+            if (rubro == null)
+            {
+                return NotFound();
+            }
+
+            rubro.Nombre = Nombre;  // Actualiza el nombre del rubro con el nuevo nombre
+            _VContext.Rubros.Update(rubro);
+            _VContext.SaveChanges();
+
+            return RedirectToAction(nameof(Rubros));
+        }
 
 
 

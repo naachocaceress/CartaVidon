@@ -8,7 +8,8 @@
     <h2 class="pb-2 border-bottom">Gestion Rubros</h2>
 
     <div class="row g-5 py-5 row-cols-1 row-cols-lg-3">
-        <div class="feature col">
+
+        <div class="feature col-lg-3">
             <h3 class="fs-2 text-center">Rubros</h3>
 
             <form id="myForm" asp-action="CargarRubro" method="POST">
@@ -48,8 +49,8 @@
                                     <td>@Html.DisplayFor(m => rubro.IdRubro)</td>
                                     <td>@Html.DisplayFor(m => rubro.Nombre)</td>
                                     <td>
-                                        <a class="btn btn-outline-primary btn-sm" asp-action="EditarRubro" asp-rout-item-id="@rubro.IdRubro">Editar</a>
-                                        <button class="btn btn-outline-danger btn-sm delete-btn" data-id="@rubro.IdRubro" data-name="@rubro.Nombre">Borrar</button>
+                                        <a class="btn btn-outline-primary btn-sm edit-btn" data-id="@rubro.IdRubro" data-name="@rubro.Nombre">Editar</a>
+                                        <a class="btn btn-outline-danger btn-sm delete-btn" data-id="@rubro.IdRubro" data-name="@rubro.Nombre">Borrar</a>
                                     </td>
                                 </tr>
                             }
@@ -70,18 +71,18 @@
 
         <!-- ------------------------------------------------------------------------------------- -->
 
-        <div class="feature col">
+        <div class="feature col-lg-6">
             <h3 class="fs-2 text-center">Subrubros</h3>
 
             <form id="myForm2" asp-action="CargarSubrubro" method="POST">
 
-
-                <div class="col-sm-12">
+                <div class="row">
+                <div class="col-sm-6">
                     <label for="Nombre" class="form-label">Nombre</label>
                     <input asp-for="Subrubro.Nombre" type="text" class="form-control" required>
                 </div>
                 <br />
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <label for="Nombre" class="form-label">Rubro</label>
                     @if (Model.RubroTabla != null)
                     {
@@ -93,7 +94,7 @@
                         <p>No hay datos disponibles para el SelectList.</p>
                     }
                 </div>
-
+                </div>
 
                 <br />
 
@@ -149,7 +150,7 @@
 
         <!-- ------------------------------------------------------------------------------------- -->
 
-        <div class="feature col">
+        <div class="feature col-lg-3">
             <h3 class="fs-2 text-center">Etiquetas</h3>
 
             <form id="myForm3" asp-action="CargarEtiqueta" method="POST">
@@ -175,7 +176,7 @@
 
                 @if (Model.EtiquetaTabla.Count() > 0)
                 {
-                    <table class="table table-striped text-center tblRubros" style="width:100%; overflow-x:auto;" id="tblRubros" cellspacing="0">
+                    <table class="table table-striped text-center tblRubros" style="width:100%; overflow-x:auto;" id="tblEtiquetas" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -212,11 +213,11 @@
 
     </div>
 
-    <div class="modal" tabindex="-1" role="dialog" id="confirmModal">
+    <div class="modal fade" tabindex="-1" role="dialog" id="confirmModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-center">¿Estás seguro de que deseas eliminar el rubro: <strong><label id="rubroName"></label></strong>?</h5>
+                    <h5 class="modal-title text-center">¿Estás seguro de que deseas eliminar <label id="rubroName"></label>?</h5>
                 </div>
                 <div class="modal-body">
                     <p> Ten en cuenta que los subrubros quedarán sin rubro en caso de que este sea el suyo.</p>
@@ -228,6 +229,30 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="editModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Rubro</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="nombre" class="col-form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="rubroName2">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="confirm2">Guardar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
 </div>
 
@@ -262,33 +287,85 @@
 
     <script>
 
+
         $(document).ready(function () {
-            var table = $('.tblRubros').DataTable({
-                "paging": false, // Desactiva la paginación
-                "language": {
-                    "decimal": "",
-                    "emptyTable": "No hay información",
-                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-                    "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
-                    "infoFiltered": "(filtrado de _MAX_ entradas en total)",
-                    "infoPostFix": "",
-                    "thousands": ",",
-                    "lengthMenu": "Mostrar _MENU_ Entradas",
-                    "loadingRecords": "Cargando...",
-                    "processing": "Procesando...",
-                    "search": "Buscar",
-                    "zeroRecords": "Sin resultados encontrados"
-                }
+            // Función para inicializar DataTables
+            function initDataTable(selector) {
+                return $(selector).DataTable({
+                    "paging": false, // Desactiva la paginación
+                    "language": {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                        "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
+                        "infoFiltered": "(filtrado de _MAX_ entradas en total)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Entradas",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar",
+                        "zeroRecords": "Sin resultados encontrados"
+                    }
+                });
+            }
+
+            // Inicializa DataTables para cada tabla
+            var tableRubros = initDataTable('#tblRubros');
+            var tableSubRubros = initDataTable('#tblSubRubros');
+            var tableSubRubros = initDataTable('#tblEtiquetas');
+
+        });
+
+       
+
+        $(document).ready(function () {
+            // Al hacer clic en el botón de editar, muestra el modal
+            $(document).on('click', '.edit-btn', function () {
+                var id = $(this).data('id');
+                var name = $(this).data('name');
+                $('#editModal').data('id', id).modal('show');
+                $('#rubroName2').val(name);  // Actualiza el nombre del rubro en el modal
+            });
+
+            $(document).on('click', '#confirm2', function () {
+                var id = $('#editModal').data('id');
+                var newName = $('#rubroName2').val();  // Recoge el valor actualizado del campo #rubroName2
+                $.post('/Carta/EditarRubro', { IdRubro: id, Nombre: newName }, function () {  // Envía el nuevo nombre en la solicitud POST
+                    // Aquí puedes actualizar tu tabla para reflejar que el rubro ha sido editado
+                    $('#editModal').modal('hide');
+                    // Aquí agregas el código para recargar la tabla
+                    $('#tblRubros').load(document.URL + ' #tblRubros', function () {
+                        // Destruye la tabla existente y vuelve a inicializarla
+                        tableRubros.destroy();
+                        tableRubros = initDataTable('#tblRubros');
+                    });
+
+                    $('#tblSubRubros').load(document.URL + ' #tblSubRubros', function () {
+                        // Destruye la tabla existente y vuelve a inicializarla
+                        tableSubRubros.destroy();
+                        tableSubRubros = initDataTable('#tblSubRubros');
+                    });
+
+                    $('#tblEtiquetas').load(document.URL + ' #tblEtiquetas', function () {
+                        // Destruye la tabla existente y vuelve a inicializarla
+                        tableEtiquetas.destroy();
+                        tableEtiquetas = initDataTable('#tblEtiquetas');
+                    });
+
+                });
             });
         });
 
+
+
         $(document).ready(function () {
             // Al hacer clic en el botón de borrar, muestra el modal
-            $('.delete-btn').click(function () {
+            $(document).on('click', '.delete-btn', function () {
                 var id = $(this).data('id');
                 var name = $(this).data('name');
                 $('#confirmModal').data('id', id).modal('show');
-                $('#rubroName').text(name);  // Actualiza el nombre del rubro en el modal
+                $('#rubroName').text("el rubro: " + name);  // Actualiza el nombre del rubro en el modal
             });
 
             // Al hacer clic en el botón "Aceptar" del modal, envía la solicitud de eliminación
@@ -297,9 +374,14 @@
                 $.post('/Carta/BorrarRubro', { IdRubro: id }, function () {
                     // Aquí puedes actualizar tu tabla para reflejar que el rubro ha sido borrado
                     $('#confirmModal').modal('hide');
+
+                    $('#tblRubros').load(document.URL + ' #tblRubros');
+                    $('#tblSubRubros').load(document.URL + ' #tblSubRubros');
                 });
             });
         });
+
+
 
     </script>
     }
