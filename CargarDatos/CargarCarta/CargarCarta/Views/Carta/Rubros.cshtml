@@ -16,7 +16,8 @@
 
                 <div class="col-sm-12">
                     <label for="Nombre" class="form-label">Nombre</label>
-                    <input asp-for="Rubro.Nombre" type="text" class="form-control" required>
+                    <input asp-for="Rubro.Nombre" type="text" class="form-control" id="nombreRubro" required>
+                    <label id="yaExiste" class="text-danger" style="display: none;">Ya existe rubro con ese nombre!</label>
                 </div>
 
                 <br />
@@ -30,7 +31,6 @@
 
             <br /> <br />
 
-            <div class="table-responsive">
 
                 @if (Model.RubroTabla.Count() > 0)
                 {
@@ -45,15 +45,16 @@
                         <tbody>
                             @foreach (var rubro in Model.RubroTabla)
                             {
-                                <tr>
+                                <tr data-id="@rubro.IdRubro">
                                     <td>@Html.DisplayFor(m => rubro.IdRubro)</td>
-                                    <td>@Html.DisplayFor(m => rubro.Nombre)</td>
+                                    <td class="nombre-rubro">@Html.DisplayFor(m => rubro.Nombre)</td>
                                     <td>
                                         <a class="btn btn-outline-primary btn-sm edit-btn" data-id="@rubro.IdRubro" data-name="@rubro.Nombre">Editar</a>
                                         <a class="btn btn-outline-danger btn-sm delete-btn" data-id="@rubro.IdRubro" data-name="@rubro.Nombre">Borrar</a>
                                     </td>
                                 </tr>
                             }
+
                         </tbody>
 
                     </table>
@@ -65,7 +66,6 @@
                 }
 
 
-            </div>
 
         </div>
 
@@ -251,8 +251,22 @@
         </div>
     </div>
 
+    
 
-
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast bg-white opacity-100" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill text-success" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                </svg> &nbsp;
+                <strong class="me-auto">¡Realizado!</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Se creo el rubro <strong><label id="rubroName3"></label></strong> correctamente!
+            </div>
+        </div>
+    </div>
 
 </div>
 
@@ -287,37 +301,73 @@
 
     <script>
 
-
         $(document).ready(function () {
-            // Función para inicializar DataTables
-            function initDataTable(selector) {
-                return $(selector).DataTable({
-                    "paging": false, // Desactiva la paginación
-                    "language": {
-                        "decimal": "",
-                        "emptyTable": "No hay información",
-                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-                        "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
-                        "infoFiltered": "(filtrado de _MAX_ entradas en total)",
-                        "infoPostFix": "",
-                        "thousands": ",",
-                        "lengthMenu": "Mostrar _MENU_ Entradas",
-                        "loadingRecords": "Cargando...",
-                        "processing": "Procesando...",
-                        "search": "Buscar",
-                        "zeroRecords": "Sin resultados encontrados"
-                    }
-                });
-            }
-
-            // Inicializa DataTables para cada tabla
-            var tableRubros = initDataTable('#tblRubros');
-            var tableSubRubros = initDataTable('#tblSubRubros');
-            var tableSubRubros = initDataTable('#tblEtiquetas');
-
+            var table = $('.tblRubros').DataTable({
+                "paging": false, // Desactiva la paginación
+                "language": {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
+                    "infoFiltered": "(filtrado de _MAX_ entradas en total)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar",
+                    "zeroRecords": "Sin resultados encontrados"
+                }
+            });
         });
 
-       
+        //--
+
+        $(document).ready(function () {
+            var table = $('#tblRubros').DataTable(); // Inicializa DataTables
+
+            $('#myForm').on('submit', function (e) {
+                $('#myButton .button-text').hide();
+                $('#myButton .spinner-border').show();
+                $('#yaExiste').hide();
+
+                e.preventDefault();
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: $(this).attr('method'),
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        if (data.error) {
+                            // Si hay un error, muestra el mensaje de error
+                            $('#yaExiste').show();
+                        } else {
+                            // Si no hay un error, agrega el nuevo rubro a la tabla
+                            var newRow = '<tr data-id="' + data.idRubro + '"><td>' + data.idRubro + '</td><td class="nombre-rubro">' + data.nombre + '</td><td><a class="btn btn-outline-primary btn-sm edit-btn" data-id="' + data.idRubro + '" data-name="' + data.nombre + '">Editar</a><a class="btn btn-outline-danger btn-sm delete-btn" data-id="' + data.idRubro + '" data-name="' + data.nombre + '">Borrar</a></td></tr>';
+
+                            $('#tblRubros tbody').append(newRow);
+
+                            // Actualiza DataTables
+                            table.row.add($(newRow)).draw();
+
+                            // Muestra el toast
+                            $('#rubroName3').text(data.nombre);  // Actualiza el nombre del rubro en el toast
+                            $('#liveToast').toast('show');  // Muestra el toast
+                            $('#nombreRubro').val('');
+                        }
+
+                        $('#myButton .button-text').show();
+                        $('#myButton .spinner-border').hide();
+                    }
+                });
+            });
+        });
+
+
+
+
+
+        //--
 
         $(document).ready(function () {
             // Al hacer clic en el botón de editar, muestra el modal
@@ -331,35 +381,44 @@
             $(document).on('click', '#confirm2', function () {
                 var id = $('#editModal').data('id');
                 var newName = $('#rubroName2').val();  // Recoge el valor actualizado del campo #rubroName2
-                $.post('/Carta/EditarRubro', { IdRubro: id, Nombre: newName }, function () {  // Envía el nuevo nombre en la solicitud POST
-                    // Aquí puedes actualizar tu tabla para reflejar que el rubro ha sido editado
-                    $('#editModal').modal('hide');
-                    // Aquí agregas el código para recargar la tabla
-                    $('#tblRubros').load(document.URL + ' #tblRubros', function () {
-                        // Destruye la tabla existente y vuelve a inicializarla
-                        tableRubros.destroy();
-                        tableRubros = initDataTable('#tblRubros');
-                    });
+                $.ajax({
+                    url: '/Carta/EditarRubro',
+                    type: 'POST',
+                    data: { IdRubro: id, Nombre: newName },
+                    success: function () {
+                        // Aquí puedes actualizar tu tabla para reflejar que el rubro ha sido editado
 
-                    $('#tblSubRubros').load(document.URL + ' #tblSubRubros', function () {
-                        // Destruye la tabla existente y vuelve a inicializarla
-                        tableSubRubros.destroy();
-                        tableSubRubros = initDataTable('#tblSubRubros');
-                    });
+                        // Actualiza la fila correspondiente en la tabla
+                        var fila = $('#tblRubros').find('tr[data-id="' + id + '"]');
+                        fila.find('.nombre-rubro').text(newName);
 
-                    $('#tblEtiquetas').load(document.URL + ' #tblEtiquetas', function () {
-                        // Destruye la tabla existente y vuelve a inicializarla
-                        tableEtiquetas.destroy();
-                        tableEtiquetas = initDataTable('#tblEtiquetas');
-                    });
+                        // Actualiza los atributos de datos del botón de edición
+                        var botonEditar = fila.find('.edit-btn');
+                        botonEditar.data('name', newName);
 
+                        // Muestra el icono de éxito en el modal
+                        $('#editModal .modal-body').html('<div class="form-group text-center p-4"><svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" fill="currentColor" class="bi bi-check-circle-fill text-success mx-auto " viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> Editado correctamente!</div>');
+
+                        // Espera 2 segundos y luego oculta el modal
+                        setTimeout(function () {
+                            $('#editModal').modal('hide');
+                            // Restaura el contenido original del modal
+                            $('#editModal .modal-body').html('<div class="form-group"><label for="nombre" class="col-form-label">Nombre:</label><input type="text" class="form-control" id="rubroName2"></div>');
+                        }, 1000);
+                    },
+                    error: function () {
+                        alert("Error al editar el rubro.");
+                    }
                 });
             });
         });
 
 
+        //--
 
         $(document).ready(function () {
+            var tabla = $('#tblRubros').DataTable();  // Inicializa la tabla con DataTables
+
             // Al hacer clic en el botón de borrar, muestra el modal
             $(document).on('click', '.delete-btn', function () {
                 var id = $(this).data('id');
@@ -371,12 +430,30 @@
             // Al hacer clic en el botón "Aceptar" del modal, envía la solicitud de eliminación
             $('#confirm').click(function () {
                 var id = $('#confirmModal').data('id');
-                $.post('/Carta/BorrarRubro', { IdRubro: id }, function () {
-                    // Aquí puedes actualizar tu tabla para reflejar que el rubro ha sido borrado
-                    $('#confirmModal').modal('hide');
+                $.ajax({
+                    url: '/Carta/BorrarRubro',
+                    type: 'POST',
+                    data: { IdRubro: id },
+                    success: function () {
+                        // Aquí puedes actualizar tu tabla para reflejar que el rubro ha sido borrado
 
-                    $('#tblRubros').load(document.URL + ' #tblRubros');
-                    $('#tblSubRubros').load(document.URL + ' #tblSubRubros');
+                        // Elimina la fila correspondiente en la tabla
+                        var fila = $('#tblRubros').find('tr[data-id="' + id + '"]');
+                        tabla.row(fila).remove().draw();  // Elimina la fila de DataTables y redibuja la tabla
+
+                        // Muestra el icono de éxito en el modal
+                        $('#confirmModal .modal-body').html('<div class="form-group text-center p-4"><svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" fill="currentColor" class="bi bi-check-circle-fill text-success mx-auto " viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> Borrado correctamente!</div>');
+
+                        // Espera 2 segundos y luego oculta el modal
+                        setTimeout(function () {
+                            $('#confirmModal').modal('hide');
+                            // Restaura el contenido original del modal
+                            $('#confirmModal .modal-body').html('<p> Ten en cuenta que los subrubros quedarán sin rubro en caso de que este sea el suyo.</p>');
+                        }, 1000);
+                    },
+                    error: function () {
+                        alert("Error al borrar el rubro.");
+                    }
                 });
             });
         });

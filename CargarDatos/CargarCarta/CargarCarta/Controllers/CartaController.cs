@@ -50,12 +50,26 @@ namespace CargarCarta.Controllers
         //
 
         [HttpPost]
-        public async Task<IActionResult> CargarRubro (Rubro rubro)
-        {
-            _VContext.Rubros.Add(rubro);
-            await _VContext.SaveChangesAsync();
-            return RedirectToAction(nameof(Rubros));
-        }
+public async Task<IActionResult> CargarRubro(Rubro rubro)
+{
+    // Comprueba si ya existe un rubro con el mismo nombre
+    var existingRubro = await _VContext.Rubros.FirstOrDefaultAsync(r => r.Nombre == rubro.Nombre);
+
+    if (existingRubro != null)
+    {
+        // Si ya existe un rubro con el mismo nombre, devuelve un error
+        return Json(new { error = "Ya existe un rubro con ese nombre." });
+    }
+    else
+    {
+        // Si no existe un rubro con el mismo nombre, añade el nuevo rubro
+        _VContext.Rubros.Add(rubro);
+        await _VContext.SaveChangesAsync();
+        return Json(rubro); // Devuelve los datos del nuevo Rubro como JSON
+    }
+}
+
+
 
 
         [HttpPost]
@@ -111,6 +125,8 @@ namespace CargarCarta.Controllers
 
             return RedirectToAction(nameof(Rubros));
         }
+
+
 
 
 
