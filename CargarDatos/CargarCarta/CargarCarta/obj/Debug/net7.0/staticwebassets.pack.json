@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\img\\Vidon bar ORIGINAL.png"
     },
     {
+      "Id": "C:\\Proyectos\\Vidon Bar\\Carta Vidon\\CartaVidon\\CargarDatos\\CargarCarta\\CargarCarta\\wwwroot\\js\\rubros.js",
+      "PackagePath": "staticwebassets\\js\\rubros.js"
+    },
+    {
       "Id": "C:\\Proyectos\\Vidon Bar\\Carta Vidon\\CartaVidon\\CargarDatos\\CargarCarta\\CargarCarta\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

@@ -46,6 +46,8 @@ namespace CargarCarta.Controllers
             return View(model);
         }
 
+        // --
+
         public async Task<IActionResult> Cargar<T>(T obj, Func<T, Task<T>> findExisting)
         {
             var existing = await findExisting(obj);
@@ -61,6 +63,36 @@ namespace CargarCarta.Controllers
                 return Json(obj);
             }
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> CargarRubro(Rubro rubro)
+        {
+            return await Cargar(rubro, async r => await _VContext.Rubros.FirstOrDefaultAsync(x => x.Nombre == r.Nombre));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CargarSubrubro(Subrubro subrubro)
+        {
+            var result = await Cargar(subrubro, async r => await _VContext.Subrubros.FirstOrDefaultAsync(x => x.Nombre == r.Nombre && x.IdRubro == r.IdRubro));
+
+            if (result is JsonResult jsonResult && jsonResult.Value is Subrubro newSubrubro)
+            {
+                var rubro = await _VContext.Rubros.FirstOrDefaultAsync(r => r.IdRubro == newSubrubro.IdRubro);
+                var rubroNombre = rubro != null ? rubro.Nombre : "";
+                return Json(new { newSubrubro.IdSubrubro, newSubrubro.Nombre, RubroNombre = rubroNombre, idRubro = rubro.IdRubro });
+            }
+
+            return result;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CargarEtiqueta(Etiqueta etiqueta)
+        {
+            return await Cargar(etiqueta, async e => await _VContext.Etiquetas.FirstOrDefaultAsync(x => x.Nombre == e.Nombre));
+        }
+
+        // --
 
         public enum EntityType
         {
@@ -132,42 +164,25 @@ namespace CargarCarta.Controllers
             return RedirectToAction(nameof(Rubros));
         }
 
+        // --
 
-        //--
-
-        [HttpPost]
-        public async Task<IActionResult> CargarRubro(Rubro rubro)
+        [HttpGet]
+        public async Task<IActionResult> GetSubrubros()
         {
-            return await Cargar(rubro, async r => await _VContext.Rubros.FirstOrDefaultAsync(x => x.Nombre == r.Nombre));
-        }      
-
-        //
-
-        [HttpPost]
-        public async Task<IActionResult> CargarSubrubro(Subrubro subrubro)
-        {
-            var result = await Cargar(subrubro, async r => await _VContext.Subrubros.FirstOrDefaultAsync(x => x.Nombre == r.Nombre && x.IdRubro == r.IdRubro));
-
-            if (result is JsonResult jsonResult && jsonResult.Value is Subrubro newSubrubro)
+            var subrubros = await _VContext.Subrubros.Include(s => s.oRubro).ToListAsync();
+            var data = new List<object>();
+            foreach (var subrubro in subrubros)
             {
-                var rubro = await _VContext.Rubros.FirstOrDefaultAsync(r => r.IdRubro == newSubrubro.IdRubro);
-                var rubroNombre = rubro != null ? rubro.Nombre : "";
-                return Json(new { newSubrubro.IdSubrubro, newSubrubro.Nombre, RubroNombre = rubroNombre, IdRubro = rubro.IdRubro });
+                data.Add(new
+                {
+                    idSubrubro = subrubro.IdSubrubro,
+                    nombre = subrubro.Nombre,
+                    idRubro = subrubro.oRubro?.IdRubro,  // Agrega el ID del rubro aquí
+                    rubroNombre = subrubro.oRubro?.Nombre
+                });
             }
-
-            return result;
-        }
-
-        //
-
-        [HttpPost]
-        public async Task<IActionResult> CargarEtiqueta(Etiqueta etiqueta)
-        {
-            return await Cargar(etiqueta, async e => await _VContext.Etiquetas.FirstOrDefaultAsync(x => x.Nombre == e.Nombre));
-        }
-
-        //
-        
+            return Json(data);
+        }       
 
         [HttpGet]
         public async Task<IActionResult> ObtenerRubros()
@@ -178,7 +193,7 @@ namespace CargarCarta.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> EditarSubrubro(int? IdSubrubro, string Nombre)
+        public async Task<IActionResult> EditarSubrubro(int? IdSubrubro, string Nombre, int? IdRubro)
         {
             if (IdSubrubro == null)
             {
@@ -191,13 +206,22 @@ namespace CargarCarta.Controllers
                 return NotFound();
             }
 
-            subrubro.Nombre = Nombre;  // Actualiza el nombre del rubro con el nuevo nombre
+            var existeSubrubro = _VContext.Subrubros.Any(s => s.Nombre == Nombre && s.IdRubro == IdRubro);
+            if (existeSubrubro)
+            {
+                return Json(new { success = false, message = "Ya existe un subrubro con ese nombre y rubro." });
+            }
+
+            subrubro.Nombre = Nombre; 
+            subrubro.IdRubro = IdRubro;
             _VContext.Subrubros.Update(subrubro);
             _VContext.SaveChanges();
 
-            return RedirectToAction(nameof(Rubros));
-        }
+            var rubro = _VContext.Rubros.Find(IdRubro);
+            var rubroNombre = rubro != null ? rubro.Nombre : null;
 
+            return Json(new { success = true, rubroNombre = rubroNombre });
+        }
 
         [HttpPost]
         public async Task<IActionResult> EditarRubro(int? IdRubro, string Nombre)
@@ -213,11 +237,17 @@ namespace CargarCarta.Controllers
                 return NotFound();
             }
 
-            rubro.Nombre = Nombre;  // Actualiza el nombre del rubro con el nuevo nombre
+            var existeRubro = _VContext.Rubros.Any(s => s.Nombre == Nombre);
+            if (existeRubro)
+            {
+                return Json(new { success = false, message = "Ya existe un rubro con ese nombre." });
+            }
+
+            rubro.Nombre = Nombre; 
             _VContext.Rubros.Update(rubro);
             _VContext.SaveChanges();
 
-            return RedirectToAction(nameof(Rubros));
+            return Json(new { success = true});
         }
 
         [HttpPost]
@@ -234,22 +264,18 @@ namespace CargarCarta.Controllers
                 return NotFound();
             }
 
-            etiqueta.Nombre = Nombre;  // Actualiza el nombre del rubro con el nuevo nombre
+            var existeEtiqueta = _VContext.Etiquetas.Any(s => s.Nombre == Nombre);
+            if (existeEtiqueta)
+            {
+                return Json(new { success = false, message = "Ya existe una etiqueta con ese nombre." });
+            }
+
+            etiqueta.Nombre = Nombre;
             _VContext.Etiquetas.Update(etiqueta);
             _VContext.SaveChanges();
 
-            return RedirectToAction(nameof(Rubros));
+            return Json(new { success = true });
         }
-
-
-
-
-
-
-
-
-
-
 
         //--
 
