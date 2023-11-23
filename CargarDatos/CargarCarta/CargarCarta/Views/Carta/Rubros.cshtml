@@ -34,12 +34,12 @@
 
                 @if (Model.RubroTabla.Count() > 0)
                 {
-                    <table class="table table-striped text-center tblRubros" style="width:100%; overflow-x:auto;" id="tblRubros" cellspacing="0">
+                    <table class="table table-striped tblRubros" style="width:100%; overflow-x:auto;" id="tblRubros" cellspacing="0">
                         <thead>
-                            <tr>
+                            <tr class="text-center">
                                 <th>ID</th>
                                 <th>Nombre</th>
-                                <th style="width:140px;">Acciones</th>
+                            <th class="fixed-column">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,9 +48,11 @@
                                 <tr data-id="@rubro.IdRubro">
                                     <td>@Html.DisplayFor(m => rubro.IdRubro)</td>
                                     <td class="nombre-rubro">@Html.DisplayFor(m => rubro.Nombre)</td>
-                                    <td>
-                                        <a class="btn btn-outline-primary btn-sm edit-btn" data-id="@rubro.IdRubro" data-name="@rubro.Nombre">Editar</a>
-                                        <a class="btn btn-outline-danger btn-sm delete-btn" data-id="@rubro.IdRubro" data-name="@rubro.Nombre">Borrar</a>
+                                <td class="fixed-column">
+                                    <div class="btn-group">
+                                        <a class="btn btn-outline-primary btn-sm edit-btn-rubro" data-id="@rubro.IdRubro" data-name="@rubro.Nombre">Editar</a>
+                                        <a class="btn btn-outline-danger btn-sm delete-btn-rubro" data-id="@rubro.IdRubro" data-name="@rubro.Nombre">Borrar</a>
+                                </div>
                                     </td>
                                 </tr>
                             }
@@ -79,7 +81,7 @@
                 <div class="row">
                 <div class="col-sm-6">
                     <label for="Nombre" class="form-label">Nombre</label>
-                    <input asp-for="Subrubro.Nombre" type="text" class="form-control" required>
+                    <input asp-for="Subrubro.Nombre" type="text" class="form-control" id="nombreSubrubro" required>
                 </div>
                 <br />
                 <div class="col-sm-6">
@@ -94,6 +96,8 @@
                         <p>No hay datos disponibles para el SelectList.</p>
                     }
                 </div>
+                    <label id="yaExiste2" class="text-danger" style="display: none;">Ya existe subrubro con ese nombre y rubro!</label>
+
                 </div>
 
                 <br />
@@ -107,7 +111,6 @@
 
             <br /> <br />
 
-            <div class="table-responsive">
 
                 @if (Model.SubrubroTabla.Count() > 0)
                 {
@@ -118,19 +121,21 @@
                                 <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Rubro</th>
-                                <th style="width:140px;">Acciones</th>
+                                <th class="fixed-column">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var subrubro in Model.SubrubroTabla)
                             {
-                                <tr>
-                                    <td>@Html.DisplayFor(m => subrubro.IdSubrubro)</td>
-                                    <td>@Html.DisplayFor(m => subrubro.Nombre)</td>
-                                    <td>@Html.DisplayFor(m => subrubro.oRubro.Nombre)</td>
-                                    <td>
-                                        <a class="btn btn-outline-primary btn-sm" asp-action="EditarSubrubro" asp-rout-item-id="@subrubro.IdSubrubro">Editar</a>
-                                        <a class="btn btn-outline-danger btn-sm" asp-action="BorrarSubrubro" asp-rout-item-id="@subrubro.IdSubrubro">Borrar</a>
+                            <tr data-id="@subrubro.IdSubrubro">
+                                <td>@Html.DisplayFor(m => subrubro.IdSubrubro)</td>
+                                <td class="nombre-subrubro">@Html.DisplayFor(m => subrubro.Nombre)</td>
+                                <td class="rubro-etiqueta">@Html.DisplayFor(m => subrubro.oRubro.Nombre)</td>
+                                <td class="fixed-column">
+                                    <div class="btn-group">
+                                        <a class="btn btn-outline-primary btn-sm edit-btn-subrubro" data-id="@subrubro.IdSubrubro" data-name="@subrubro.Nombre" data-rubro="@subrubro.oRubro.IdRubro">Editar</a>
+                                        <a class="btn btn-outline-danger btn-sm delete-btn-subrubro" data-id="@subrubro.IdSubrubro" data-name="@subrubro.Nombre">Borrar</a>
+                                    </div>
                                     </td>
                                 </tr>
 
@@ -144,8 +149,6 @@
                     <h4 class="text-center">Sin resultados aún</h4>
                 }
 
-            </div>
-
         </div>
 
         <!-- ------------------------------------------------------------------------------------- -->
@@ -155,10 +158,11 @@
 
             <form id="myForm3" asp-action="CargarEtiqueta" method="POST">
 
-
                 <div class="col-sm-12">
                     <label for="Nombre" class="form-label">Nombre</label>
-                    <input asp-for="Etiqueta.Nombre" type="text" class="form-control" required>
+                    <input asp-for="Etiqueta.Nombre" type="text" class="form-control" id="nombreEtiqueta" required>
+                    <label id="yaExiste3" class="text-danger" style="display: none;">Ya existe etiqueta con ese nombre!</label>
+
                 </div>
 
                 <br />
@@ -172,27 +176,28 @@
 
             <br /> <br />
 
-            <div class="table-responsive">
 
                 @if (Model.EtiquetaTabla.Count() > 0)
                 {
-                    <table class="table table-striped text-center tblRubros" style="width:100%; overflow-x:auto;" id="tblEtiquetas" cellspacing="0">
+                    <table class="table table-striped tblRubros" style="width:100%; overflow-x:auto;" id="tblEtiquetas" cellspacing="0">
                         <thead>
-                            <tr>
+                        <tr class="text-center">
                                 <th>ID</th>
                                 <th>Nombre</th>
-                                <th style="width:140px;">Acciones</th>
+                                <th class="fixed-column">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var etiqueta in Model.EtiquetaTabla)
                             {
-                                <tr>
-                                    <td>@Html.DisplayFor(m => etiqueta.IdEtiqueta)</td>
-                                    <td>@Html.DisplayFor(m => etiqueta.Nombre)</td>
-                                    <td>
-                                        <a class="btn btn-outline-primary btn-sm" asp-action="EditarRubro" asp-rout-item-id="@etiqueta.IdEtiqueta">Editar</a>
-                                        <a class="btn btn-outline-danger btn-sm" asp-action="BorrarRubro" asp-rout-item-id="@etiqueta.IdEtiqueta">Borrar</a>
+                            <tr data-id="@etiqueta.IdEtiqueta">
+                                <td>@Html.DisplayFor(m => etiqueta.IdEtiqueta)</td>
+                                <td class="nombre-etiqueta">@Html.DisplayFor(m => etiqueta.Nombre)</td>
+                                <td class="fixed-column">
+                                    <div class="btn-group">
+                                        <a class="btn btn-outline-primary btn-sm edit-btn-etiqueta" data-id="@etiqueta.IdEtiqueta" data-name="@etiqueta.Nombre">Editar</a>
+                                        <a class="btn btn-outline-danger btn-sm delete-btn-etiqueta" data-id="@etiqueta.IdEtiqueta" data-name="@etiqueta.Nombre">Borrar</a>
+                                    </div>
                                     </td>
                                 </tr>
 
@@ -206,10 +211,9 @@
                     <h4 class="text-center">Sin resultados aún</h4>
                 }
 
-
-            </div>
-
         </div>
+
+        <!-- ------------------------------------------------------------------------------------- -->
 
     </div>
 
@@ -220,11 +224,8 @@
                     <h5 class="modal-title text-center">¿Estás seguro de que deseas eliminar <label id="rubroName"></label>?</h5>
                 </div>
                 <div class="modal-body">
-                    <p> Ten en cuenta que los subrubros quedarán sin rubro en caso de que este sea el suyo.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="confirm">Aceptar</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 </div>
             </div>
         </div>
@@ -235,13 +236,10 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Editar Rubro</h5>
+                    
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="nombre" class="col-form-label">Nombre:</label>
-                        <input type="text" class="form-control" id="rubroName2">
-                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="confirm2">Guardar</button>
@@ -263,7 +261,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
             <div class="toast-body">
-                Se creo el rubro <strong><label id="rubroName3"></label></strong> correctamente!
+                Se creo <label id="rubroName3"></label> correctamente!
             </div>
         </div>
     </div>
@@ -294,6 +292,18 @@
     #tblRubros {
         border: 1px solid #f2f2f2; /* Borde negro de 2 píxeles */
     }
+
+    .fixed-column {
+        position: sticky;
+        right: 0;
+        background-color: white;
+    }
+
+    .btn-group {
+        display: flex;
+    }
+
+
 </style>
 
 
@@ -304,6 +314,7 @@
         $(document).ready(function () {
             var table = $('.tblRubros').DataTable({
                 "paging": false, // Desactiva la paginación
+                "scrollX": true, // Habilita el scroll horizontal
                 "language": {
                     "decimal": "",
                     "emptyTable": "No hay información",
@@ -321,88 +332,189 @@
             });
         });
 
-        //--
 
-        $(document).ready(function () {
-            var table = $('#tblRubros').DataTable(); // Inicializa DataTables
+        // Carga --
 
-            $('#myForm').on('submit', function (e) {
-                $('#myButton .button-text').hide();
-                $('#myButton .spinner-border').show();
-                $('#yaExiste').hide();
-
+        function handleForm(formId, tableId, buttonId, existId, rowTemplate, toastMessage) {
+            var table = $(tableId).DataTable();
+            $(formId).on('submit', function (e) {
+                $(buttonId + ' .button-text').hide();
+                $(buttonId + ' .spinner-border').show();
+                $(existId).hide();
                 e.preventDefault();
-
                 $.ajax({
                     url: $(this).attr('action'),
                     type: $(this).attr('method'),
                     data: $(this).serialize(),
                     success: function (data) {
                         if (data.error) {
-                            // Si hay un error, muestra el mensaje de error
-                            $('#yaExiste').show();
+                            $(existId).show();
                         } else {
-                            // Si no hay un error, agrega el nuevo rubro a la tabla
-                            var newRow = '<tr data-id="' + data.idRubro + '"><td>' + data.idRubro + '</td><td class="nombre-rubro">' + data.nombre + '</td><td><a class="btn btn-outline-primary btn-sm edit-btn" data-id="' + data.idRubro + '" data-name="' + data.nombre + '">Editar</a><a class="btn btn-outline-danger btn-sm delete-btn" data-id="' + data.idRubro + '" data-name="' + data.nombre + '">Borrar</a></td></tr>';
-
-                            $('#tblRubros tbody').append(newRow);
-
-                            // Actualiza DataTables
+                            var newRow = rowTemplate(data);
+                            $(tableId + ' tbody').append(newRow);
                             table.row.add($(newRow)).draw();
-
-                            // Muestra el toast
-                            $('#rubroName3').text(data.nombre);  // Actualiza el nombre del rubro en el toast
-                            $('#liveToast').toast('show');  // Muestra el toast
-                            $('#nombreRubro').val('');
+                            $('#rubroName3').html(toastMessage(data));
+                            $('#liveToast').toast('show');
                         }
-
-                        $('#myButton .button-text').show();
-                        $('#myButton .spinner-border').hide();
+                        $(buttonId + ' .button-text').show();
+                        $(buttonId + ' .spinner-border').hide();
                     }
+                });
+            });
+        }
+
+        $(document).ready(function () {
+            handleForm('#myForm', '#tblRubros', '#myButton', '#yaExiste',
+                function (data) {
+                    $('#nombreRubro').val('');
+                    var newRow = '<tr data-id="' + data.idRubro + '"><td>' + data.idRubro + '</td><td class="nombre-rubro">' + data.nombre + '</td><td class="fixed-column"><div class="btn-group"><a class="btn btn-outline-primary btn-sm edit-btn-rubro" data-id="' + data.idRubro + '" data-name="' + data.nombre + '">Editar</a><a class="btn btn-outline-danger btn-sm delete-btn-rubro" data-id="' + data.idRubro + '" data-name="' + data.nombre + '">Borrar</a></div></td></tr>';
+                    // Agrega el nuevo rubro al select
+                    $('#Subrubro_IdRubro').append(new Option(data.nombre, data.idRubro));
+                    return newRow;
+                },
+                function (data) {
+                    return "el rubro " + "<strong>" + data.nombre + "</strong>";
+                }
+            );
+
+            handleForm('#myForm2', '#tblSubRubros', '#myButton2', '#yaExiste2',
+                function (data) {
+                    $('#nombreSubrubro').val('');
+                    return '<tr data-id="' + data.idSubrubro + '"><td>' + data.idSubrubro + '</td><td class="nombre-rubro">' + data.nombre + '</td><td class="idRubro-rubro"> ' + data.rubroNombre + '</td><td class="fixed-column"><div class="btn-group"><a class="btn btn-outline-primary btn-sm edit-btn-subrubro" data-id="' + data.idSubrubro + '" data-name="' + data.nombre + '" data-rubro="' + data.IdRubro + '">Editar</a><a class="btn btn-outline-danger btn-sm delete-btn-subrubro" data-id="' + data.idSubrubro + '" data-name="' + data.nombre + '">Borrar</a></div></td></tr>';
+                },
+                function (data) {
+                    return "el subrubro " + "<strong>" + data.nombre + "</strong>";
+                }
+            );
+
+            handleForm('#myForm3', '#tblEtiquetas', '#myButton3', '#yaExiste3',
+                function (data) {
+                    $('#nombreEtiqueta').val('');
+                    return '<tr data-id="' + data.idEtiqueta + '"><td>' + data.idEtiqueta + '</td><td class="nombre-rubro">' + data.nombre + '</td><td class="fixed-column"><div class="btn-group"><a class="btn btn-outline-primary btn-sm edit-btn-etiqueta" data-id="' + data.idEtiqueta + '" data-name="' + data.nombre + '">Editar</a><a class="btn btn-outline-danger btn-sm delete-btn-etiqueta" data-id="' + data.idEtiqueta + '" data-name="' + data.nombre + '">Borrar</a></div></td></tr>';
+                },
+                function (data) {
+                    return "la etiqueta " + "<strong>" + data.nombre + "</strong>";
+                }
+            );
+        });
+
+        // Eliminar --
+
+        $(document).ready(function () {
+            var config = [
+                {
+                    tabla: '#tblRubros',
+                    btn: '.delete-btn-rubro',
+                    url: '/Carta/Borrar',
+                    id: 'IdRubro',
+                    name: 'el rubro',
+                    msg: 'Ten en cuenta que los subrubros quedarán sin rubro en caso de que este sea el suyo.',
+                    entityType: 'Rubro'
+                },
+                {
+                    tabla: '#tblSubRubros',
+                    btn: '.delete-btn-subrubro',
+                    url: '/Carta/Borrar',
+                    id: 'IdSubrubro',
+                    name: 'el subrubro',
+                    msg: 'Ten en cuenta que todos los articulos quedarán sin subrubro en caso de que este sea el suyo.',
+                    entityType: 'Subrubro'
+                },
+                {
+                    tabla: '#tblEtiquetas',
+                    btn: '.delete-btn-etiqueta',
+                    url: '/Carta/Borrar',
+                    id: 'IdEtiqueta',
+                    name: 'la etiqueta',
+                    msg: 'Ten en cuenta que todos los articulos quedarán sin etiqueta en caso de que este sea el suyo.',
+                    entityType: 'Etiqueta'
+                }
+            ];
+
+            config.forEach(function (item) {
+                var tabla = $(item.tabla).DataTable();
+
+                $(document).on('click', item.btn, function () {
+                    var id = $(this).data('id');
+                    var name = $(this).data('name');
+                    $('#confirmModal').data('id', id).modal('show');
+                    $('#rubroName').text(item.name + ": " + name);
+                    $('#confirmModal .modal-body').html('<p>' + item.msg + '</p>');
+                    $('#confirmModal .modal-footer').html('<button type="button" class="btn btn-primary w-15" id="confirmDelete"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span><span class="btn-text">Aceptar</span></button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>');
+
+                    $('#confirmDelete').click(function () {
+                        var id = $('#confirmModal').data('id');
+                        var btn = $(this);
+                        btn.find('.spinner-border').show();
+                        btn.find('.btn-text').hide();
+                        btn.prop('disabled', true);
+                        $.ajax({
+                            url: item.url,
+                            type: 'POST',
+                            data: { id: id, entityType: item.entityType },
+                            success: function () {
+                                var fila = $(item.tabla).find('tr[data-id="' + id + '"]');
+                                tabla.row(fila).remove().draw();
+                                $('#confirmModal .modal-body').html('<div class="form-group text-center p-4"><svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" fill="currentColor" class="bi bi-check-circle-fill text-success mx-auto " viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> Borrado correctamente!</div>');
+                                setTimeout(function () {
+                                    $('#confirmModal').modal('hide');
+                                    $('#confirmModal .modal-body').html('<p>' + item.msg + '</p>');
+                                    btn.find('.spinner-border').hide();
+                                    btn.find('.btn-text').show();
+                                    btn.prop('disabled', false);
+                                }, 1000);
+                            },
+                            error: function () {
+                                alert("Error al borrar " + item.name + ".");
+                                btn.find('.spinner-border').hide();
+                                btn.find('.btn-text').show();
+                                btn.prop('disabled', false);
+                            }
+                        });
+                    });
                 });
             });
         });
 
-
-
-
-
         //--
 
         $(document).ready(function () {
-            // Al hacer clic en el botón de editar, muestra el modal
-            $(document).on('click', '.edit-btn', function () {
+            $(document).on('click', '.edit-btn-rubro', function () {
                 var id = $(this).data('id');
                 var name = $(this).data('name');
                 $('#editModal').data('id', id).modal('show');
-                $('#rubroName2').val(name);  // Actualiza el nombre del rubro en el modal
+                $('#editModal .modal-header').html('<h5 class="modal-title">Editar Rubro</h5>');
+                $('#editModal .modal-body').html('<div class="form-group"> <label for="nombre" class="col-form-label">Nombre:</label> <input type="text" class="form-control" id="rubroName2"> </div>');
+                $('#rubroName2').val(name);  
+                $('#editModal .modal-footer').html('<button type="button" class="btn btn-primary w-15" id="confirmEdit"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span><span class="btn-text">Aceptar</span></button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>');
             });
 
-            $(document).on('click', '#confirm2', function () {
+            $(document).on('click', '#confirmEdit', function () {
                 var id = $('#editModal').data('id');
-                var newName = $('#rubroName2').val();  // Recoge el valor actualizado del campo #rubroName2
+                var newName = $('#rubroName2').val();  
+                var btn = $(this);
+                btn.find('.spinner-border').show();
+                btn.find('.btn-text').hide();
+
                 $.ajax({
                     url: '/Carta/EditarRubro',
                     type: 'POST',
                     data: { IdRubro: id, Nombre: newName },
                     success: function () {
-                        // Aquí puedes actualizar tu tabla para reflejar que el rubro ha sido editado
 
-                        // Actualiza la fila correspondiente en la tabla
                         var fila = $('#tblRubros').find('tr[data-id="' + id + '"]');
                         fila.find('.nombre-rubro').text(newName);
 
-                        // Actualiza los atributos de datos del botón de edición
-                        var botonEditar = fila.find('.edit-btn');
+                        var botonEditar = fila.find('.edit-btn-rubro');
                         botonEditar.data('name', newName);
 
-                        // Muestra el icono de éxito en el modal
                         $('#editModal .modal-body').html('<div class="form-group text-center p-4"><svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" fill="currentColor" class="bi bi-check-circle-fill text-success mx-auto " viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> Editado correctamente!</div>');
 
-                        // Espera 2 segundos y luego oculta el modal
                         setTimeout(function () {
                             $('#editModal').modal('hide');
-                            // Restaura el contenido original del modal
+                            btn.find('.spinner-border').hide();
+                            btn.find('.btn-text').show();
+
                             $('#editModal .modal-body').html('<div class="form-group"><label for="nombre" class="col-form-label">Nombre:</label><input type="text" class="form-control" id="rubroName2"></div>');
                         }, 1000);
                     },
@@ -414,50 +526,120 @@
         });
 
 
-        //--
-
         $(document).ready(function () {
-            var tabla = $('#tblRubros').DataTable();  // Inicializa la tabla con DataTables
-
-            // Al hacer clic en el botón de borrar, muestra el modal
-            $(document).on('click', '.delete-btn', function () {
+            $(document).on('click', '.edit-btn-etiqueta', function () {
                 var id = $(this).data('id');
                 var name = $(this).data('name');
-                $('#confirmModal').data('id', id).modal('show');
-                $('#rubroName').text("el rubro: " + name);  // Actualiza el nombre del rubro en el modal
+                $('#editModal').data('id', id).modal('show');
+                $('#editModal .modal-header').html('<h5 class="modal-title">Editar Etiqueta</h5>');
+                $('#editModal .modal-body').html('<div class="form-group"> <label for="nombre" class="col-form-label">Nombre:</label> <input type="text" class="form-control" id="rubroName2"> </div>');
+                $('#rubroName2').val(name);  
+                $('#editModal .modal-footer').html('<button type="button" class="btn btn-primary w-15" id="confirmEdit2"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span><span class="btn-text">Aceptar</span></button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>');
             });
 
-            // Al hacer clic en el botón "Aceptar" del modal, envía la solicitud de eliminación
-            $('#confirm').click(function () {
-                var id = $('#confirmModal').data('id');
+            $(document).on('click', '#confirmEdit2', function () {
+                var id = $('#editModal').data('id');
+                var newName = $('#rubroName2').val();  
+                var btn = $(this);
+                btn.find('.spinner-border').show();
+                btn.find('.btn-text').hide();
+
                 $.ajax({
-                    url: '/Carta/BorrarRubro',
+                    url: '/Carta/EditarEtiqueta',
                     type: 'POST',
-                    data: { IdRubro: id },
+                    data: { IdEtiqueta: id, Nombre: newName },
                     success: function () {
-                        // Aquí puedes actualizar tu tabla para reflejar que el rubro ha sido borrado
 
-                        // Elimina la fila correspondiente en la tabla
-                        var fila = $('#tblRubros').find('tr[data-id="' + id + '"]');
-                        tabla.row(fila).remove().draw();  // Elimina la fila de DataTables y redibuja la tabla
+                        var fila = $('#tblEtiquetas').find('tr[data-id="' + id + '"]');
+                        fila.find('.nombre-etiqueta').text(newName);
 
-                        // Muestra el icono de éxito en el modal
-                        $('#confirmModal .modal-body').html('<div class="form-group text-center p-4"><svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" fill="currentColor" class="bi bi-check-circle-fill text-success mx-auto " viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> Borrado correctamente!</div>');
+                        var botonEditar = fila.find('.edit-btn-etiqueta');
+                        botonEditar.data('name', newName);
 
-                        // Espera 2 segundos y luego oculta el modal
+                        $('#editModal .modal-body').html('<div class="form-group text-center p-4"><svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" fill="currentColor" class="bi bi-check-circle-fill text-success mx-auto " viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> Editado correctamente!</div>');
+
                         setTimeout(function () {
-                            $('#confirmModal').modal('hide');
-                            // Restaura el contenido original del modal
-                            $('#confirmModal .modal-body').html('<p> Ten en cuenta que los subrubros quedarán sin rubro en caso de que este sea el suyo.</p>');
+                            $('#editModal').modal('hide');
+                            btn.find('.spinner-border').hide();
+                            btn.find('.btn-text').show();
+
+                            $('#editModal .modal-body').html('<div class="form-group"><label for="nombre" class="col-form-label">Nombre:</label><input type="text" class="form-control" id="rubroName2"></div>');
                         }, 1000);
                     },
                     error: function () {
-                        alert("Error al borrar el rubro.");
+                        alert("Error al editar la etiqueta.");
                     }
                 });
             });
         });
 
+
+        $(document).ready(function () {
+            // Al hacer clic en el botón de editar, muestra el modal
+            $(document).on('click', '.edit-btn-subrubro', function () {
+                var id = $(this).data('id');
+                var name = $(this).data('name');
+                var rubro = $(this).data('rubro');  // Obtén el valor del rubro aquí
+                $('#editModal').data('id', id).modal('show');
+                $('#editModal .modal-header').html('<h5 class="modal-title">Editar Subrubro</h5>');
+                $('#editModal .modal-body').html('<div class="form-group"> <label for="nombre" class="col-form-label">Nombre:</label> <input type="text" class="form-control" id="rubroName2"> <label class="col-form-label">Rubro:</label><select id="rubroSelect" class="form-select" aria-label="Default select example" required> </select></div>');
+                $('#rubroName2').val(name);  // Actualiza el nombre del rubro en el modal
+                $('#editModal .modal-footer').html('<button type="button" class="btn btn-primary w-15" id="confirmEdit3"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span><span class="btn-text">Aceptar</span></button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>');
+
+                $.ajax({
+                    url: '/Carta/ObtenerRubros',  
+                    type: 'GET',
+                    success: function (data) {
+                        var select = $('#rubroSelect');  
+                        select.empty();
+                        $.each(data, function (index, item) {
+                            select.append($('<option></option>').val(item.valor).html(item.texto));  // Actualiza 'valor' y 'texto' con las propiedades correspondientes de tus datos
+                        });
+                        select.val(rubro);  // Establece el valor del select aquí
+                    }
+                });
+            });
+
+            $(document).on('click', '#confirmEdit3', function () {
+                var id = $('#editModal').data('id');
+                var newName = $('#rubroName2').val();  
+                var btn = $(this);
+                btn.find('.spinner-border').show();
+                btn.find('.btn-text').hide();
+
+                $.ajax({
+                    url: '/Carta/EditarSubrubro',
+                    type: 'POST',
+                    data: { IdSubrubro: id, Nombre: newName },
+                    success: function () {
+
+                        var fila = $('#tblSubRubros').find('tr[data-id="' + id + '"]');
+                        fila.find('.nombre-subrubro').text(newName);
+
+                        var botonEditar = fila.find('.edit-btn-subrubro');
+                        botonEditar.data('name', newName);
+
+                        $('#editModal .modal-body').html('<div class="form-group text-center p-4"><svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" fill="currentColor" class="bi bi-check-circle-fill text-success mx-auto " viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg> Editado correctamente!</div>');
+
+                        setTimeout(function () {
+                            $('#editModal').modal('hide');
+                            btn.find('.spinner-border').hide();
+                            btn.find('.btn-text').show();
+
+                            $('#editModal .modal-body').html('<div class="form-group"><label for="nombre" class="col-form-label">Nombre:</label><input type="text" class="form-control" id="rubroName2"></div>');
+                        }, 1000);
+                    },
+                    error: function () {
+                        alert("Error al editar el subrubro.");
+                    }
+                });
+            });
+        });
+
+
+
+
+        
 
 
     </script>

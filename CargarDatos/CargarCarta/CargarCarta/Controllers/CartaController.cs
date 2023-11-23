@@ -46,67 +46,161 @@ namespace CargarCarta.Controllers
             return View(model);
         }
 
-
-        //
-
-        [HttpPost]
-public async Task<IActionResult> CargarRubro(Rubro rubro)
-{
-    // Comprueba si ya existe un rubro con el mismo nombre
-    var existingRubro = await _VContext.Rubros.FirstOrDefaultAsync(r => r.Nombre == rubro.Nombre);
-
-    if (existingRubro != null)
-    {
-        // Si ya existe un rubro con el mismo nombre, devuelve un error
-        return Json(new { error = "Ya existe un rubro con ese nombre." });
-    }
-    else
-    {
-        // Si no existe un rubro con el mismo nombre, añade el nuevo rubro
-        _VContext.Rubros.Add(rubro);
-        await _VContext.SaveChangesAsync();
-        return Json(rubro); // Devuelve los datos del nuevo Rubro como JSON
-    }
-}
-
-
-
-
-        [HttpPost]
-        public async Task<IActionResult> BorrarRubro(int? IdRubro)
+        public async Task<IActionResult> Cargar<T>(T obj, Func<T, Task<T>> findExisting)
         {
-            if (IdRubro == null)
+            var existing = await findExisting(obj);
+
+            if (existing != null)
+            {
+                return Json(new { error = $"Ya existe un {typeof(T).Name} con ese nombre." });
+            }
+            else
+            {
+                _VContext.Add(obj);
+                await _VContext.SaveChangesAsync();
+                return Json(obj);
+            }
+        }
+
+        public enum EntityType
+        {
+            Rubro,
+            Subrubro,
+            Etiqueta
+        }
+
+        public async Task<IActionResult> Borrar(int? id, EntityType entityType)
+        {
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var rubro = _VContext.Rubros.Find(IdRubro);
-            if (rubro == null)
+            switch (entityType)
             {
-                return NotFound();
+                case EntityType.Rubro:
+                    var rubro = _VContext.Rubros.Find(id);
+                    if (rubro == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // Encuentra los Subrubros asociados con este Rubro
+                    var subrubros = _VContext.Subrubros.Where(s => s.IdRubro == id);
+
+                    // Establece la clave foránea a null
+                    foreach (var subrubroe in subrubros)
+                    {
+                        subrubroe.IdRubro = null;
+                    }
+
+                    // Guarda los cambios en los Subrubros
+                    await _VContext.SaveChangesAsync();
+
+                    // Ahora puedes borrar el Rubro
+                    _VContext.Rubros.Remove(rubro);
+                    break;
+
+                case EntityType.Subrubro:
+                    var subrubro = _VContext.Subrubros.Find(id);
+                    if (subrubro == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // Ahora puedes borrar el Subrubro
+                    _VContext.Subrubros.Remove(subrubro);
+                    break;
+
+                case EntityType.Etiqueta:
+                    var etiqueta = _VContext.Etiquetas.Find(id);
+                    if (etiqueta == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // Ahora puedes borrar la Etiqueta
+                    _VContext.Etiquetas.Remove(etiqueta);
+                    break;
+
+                default:
+                    return NotFound();
             }
 
-            // Encuentra los Subrubros asociados con este Rubro
-            var subrubros = _VContext.Subrubros.Where(s => s.IdRubro == IdRubro);
-
-            // Establece la clave foránea a null
-            foreach (var subrubro in subrubros)
-            {
-                subrubro.IdRubro = null;
-            }
-
-            // Guarda los cambios en los Subrubros
-            await _VContext.SaveChangesAsync();
-
-            // Ahora puedes borrar el Rubro
-            _VContext.Rubros.Remove(rubro);
             await _VContext.SaveChangesAsync();
 
             return RedirectToAction(nameof(Rubros));
         }
 
+
+        //--
+
         [HttpPost]
-        public async Task<IActionResult> EditarRubro(int? IdRubro, string Nombre)  // Recibe el nuevo nombre como parámetro
+        public async Task<IActionResult> CargarRubro(Rubro rubro)
+        {
+            return await Cargar(rubro, async r => await _VContext.Rubros.FirstOrDefaultAsync(x => x.Nombre == r.Nombre));
+        }      
+
+        //
+
+        [HttpPost]
+        public async Task<IActionResult> CargarSubrubro(Subrubro subrubro)
+        {
+            var result = await Cargar(subrubro, async r => await _VContext.Subrubros.FirstOrDefaultAsync(x => x.Nombre == r.Nombre && x.IdRubro == r.IdRubro));
+
+            if (result is JsonResult jsonResult && jsonResult.Value is Subrubro newSubrubro)
+            {
+                var rubro = await _VContext.Rubros.FirstOrDefaultAsync(r => r.IdRubro == newSubrubro.IdRubro);
+                var rubroNombre = rubro != null ? rubro.Nombre : "";
+                return Json(new { newSubrubro.IdSubrubro, newSubrubro.Nombre, RubroNombre = rubroNombre, IdRubro = rubro.IdRubro });
+            }
+
+            return result;
+        }
+
+        //
+
+        [HttpPost]
+        public async Task<IActionResult> CargarEtiqueta(Etiqueta etiqueta)
+        {
+            return await Cargar(etiqueta, async e => await _VContext.Etiquetas.FirstOrDefaultAsync(x => x.Nombre == e.Nombre));
+        }
+
+        //
+        
+
+        [HttpGet]
+        public async Task<IActionResult> ObtenerRubros()
+        {
+            var rubros = await _VContext.Rubros.ToListAsync();
+            return Json(rubros.Select(r => new { valor = r.IdRubro, texto = r.Nombre }));
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> EditarSubrubro(int? IdSubrubro, string Nombre)
+        {
+            if (IdSubrubro == null)
+            {
+                return NotFound();
+            }
+
+            var subrubro = _VContext.Subrubros.Find(IdSubrubro);
+            if (subrubro == null)
+            {
+                return NotFound();
+            }
+
+            subrubro.Nombre = Nombre;  // Actualiza el nombre del rubro con el nuevo nombre
+            _VContext.Subrubros.Update(subrubro);
+            _VContext.SaveChanges();
+
+            return RedirectToAction(nameof(Rubros));
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> EditarRubro(int? IdRubro, string Nombre)
         {
             if (IdRubro == null)
             {
@@ -126,29 +220,36 @@ public async Task<IActionResult> CargarRubro(Rubro rubro)
             return RedirectToAction(nameof(Rubros));
         }
 
-
-
-
-
-        //
-
         [HttpPost]
-        public async Task<IActionResult> CargarSubrubro (Subrubro subrubro)
+        public async Task<IActionResult> EditarEtiqueta(int? IdEtiqueta, string Nombre)
         {
-            _VContext.Subrubros.Add(subrubro);
-            await _VContext.SaveChangesAsync();
+            if (IdEtiqueta == null)
+            {
+                return NotFound();
+            }
+
+            var etiqueta = _VContext.Etiquetas.Find(IdEtiqueta);
+            if (etiqueta == null)
+            {
+                return NotFound();
+            }
+
+            etiqueta.Nombre = Nombre;  // Actualiza el nombre del rubro con el nuevo nombre
+            _VContext.Etiquetas.Update(etiqueta);
+            _VContext.SaveChanges();
+
             return RedirectToAction(nameof(Rubros));
         }
 
-        //
 
-        [HttpPost]
-        public async Task<IActionResult> CargarEtiqueta(Etiqueta etiqueta)
-        {
-            _VContext.Etiquetas.Add(etiqueta);
-            await _VContext.SaveChangesAsync();
-            return RedirectToAction(nameof(Rubros));
-        }
+
+
+
+
+
+
+
+
 
         //--
 
