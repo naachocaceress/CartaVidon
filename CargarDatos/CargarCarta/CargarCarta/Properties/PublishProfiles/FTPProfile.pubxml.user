@@ -7,24 +7,24 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAArdLs4gXGY0GZL4xP3ta7bgAAAAACAAAAAAAQZgAAAAEAACAAAACRZIkpahngT3FcnOWjN21jk+mQan38PJ3HNeHQyRhnnAAAAAAOgAAAAAIAACAAAABzrJmgcs0m5M0w6bc8jAHMPrIYoZoje2wPGQA25WCtgSAAAACCZH92O8NLIa3uxZqBdXIHuQDe571ybP4rsMdF5viz6UAAAAASnswOBsUN/uij/ZWDIFUQcBvhqof9GimsyiPWhOZSxOrVmbCexQxK9+VeT/dQVvhot7T/oD94oRK9QkU1gHKE</EncryptedPassword>
     <_PublishTargetUrl>ftp://50.63.8.144/sistemas.vidonbar.com.ar/VCarta</_PublishTargetUrl>
-    <History>True|2023-11-23T01:02:47.7380852Z;</History>
+    <History>True|2023-11-25T00:28:16.9580401Z;True|2023-11-24T20:12:23.2065393-03:00;True|2023-11-24T18:09:20.4881164-03:00;True|2023-11-24T17:37:48.8677299-03:00;True|2023-11-24T17:23:02.8513480-03:00;True|2023-11-24T17:09:11.1577616-03:00;False|2023-11-24T16:49:43.2687143-03:00;False|2023-11-24T16:47:32.7938999-03:00;False|2023-11-24T16:44:36.7750602-03:00;False|2023-11-24T16:32:15.1664919-03:00;False|2023-11-24T16:27:28.7217802-03:00;False|2023-11-24T16:00:01.3165148-03:00;False|2023-11-24T15:56:21.7874627-03:00;False|2023-11-24T15:46:39.3608345-03:00;True|2023-11-24T15:14:08.1285231-03:00;True|2023-11-23T21:51:52.4708688-03:00;True|2023-11-23T21:02:49.8100267-03:00;True|2023-11-22T22:02:47.7380852-03:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
     <File Include="af/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="appsettings.Development.json">
       <publishTime>10/27/2023 19:34:09</publishTime>
     </File>
     <File Include="appsettings.json">
-      <publishTime>11/21/2023 21:58:01</publishTime>
+      <publishTime>11/23/2023 20:41:13</publishTime>
     </File>
     <File Include="ar/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="az/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:08</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Azure.Core.dll">
       <publishTime>06/30/2022 16:28:36</publishTime>
@@ -33,28 +33,28 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/19/2022 17:31:34</publishTime>
     </File>
     <File Include="bg/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:08</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bn-BD/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:08</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="CargarCarta.deps.json">
-      <publishTime>11/22/2023 21:45:48</publishTime>
+      <publishTime>11/24/2023 21:20:38</publishTime>
     </File>
     <File Include="CargarCarta.dll">
-      <publishTime>11/22/2023 21:45:43</publishTime>
+      <publishTime>11/24/2023 21:20:32</publishTime>
     </File>
     <File Include="CargarCarta.exe">
-      <publishTime>11/22/2023 21:45:43</publishTime>
+      <publishTime>11/24/2023 21:20:32</publishTime>
     </File>
     <File Include="CargarCarta.pdb">
-      <publishTime>11/22/2023 21:45:43</publishTime>
+      <publishTime>11/24/2023 21:20:32</publishTime>
     </File>
     <File Include="CargarCarta.runtimeconfig.json">
-      <publishTime>11/22/2023 21:45:45</publishTime>
+      <publishTime>11/23/2023 21:42:13</publishTime>
     </File>
     <File Include="cs/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:08</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="cs/Microsoft.CodeAnalysis.CSharp.Features.resources.dll">
       <publishTime>11/12/2022 01:16:28</publishTime>
@@ -78,10 +78,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/12/2022 01:09:18</publishTime>
     </File>
     <File Include="da/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:10</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="de/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:10</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="de/Microsoft.CodeAnalysis.CSharp.Features.resources.dll">
       <publishTime>11/12/2022 01:16:28</publishTime>
@@ -108,10 +108,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>08/03/2023 17:56:36</publishTime>
     </File>
     <File Include="el/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:10</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="es/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:12</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="es/Microsoft.CodeAnalysis.CSharp.Features.resources.dll">
       <publishTime>11/12/2022 01:16:28</publishTime>
@@ -135,16 +135,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/12/2022 01:09:18</publishTime>
     </File>
     <File Include="fa/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:04</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="fi-FI/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="fr-BE/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="fr/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:08</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="fr/Microsoft.CodeAnalysis.CSharp.Features.resources.dll">
       <publishTime>11/12/2022 01:16:28</publishTime>
@@ -168,28 +168,28 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/12/2022 01:09:18</publishTime>
     </File>
     <File Include="he/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:08</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="hr/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:08</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="hu/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:10</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Humanizer.dll">
-      <publishTime>01/29/2022 12:04:04</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="hy/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:10</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="id/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:10</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="is/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:12</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="it/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:12</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="it/Microsoft.CodeAnalysis.CSharp.Features.resources.dll">
       <publishTime>11/12/2022 01:16:28</publishTime>
@@ -213,7 +213,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/12/2022 01:09:18</publishTime>
     </File>
     <File Include="ja/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:04</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="ja/Microsoft.CodeAnalysis.CSharp.Features.resources.dll">
       <publishTime>11/12/2022 01:16:28</publishTime>
@@ -237,7 +237,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/12/2022 01:09:18</publishTime>
     </File>
     <File Include="ko-KR/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="ko/Microsoft.CodeAnalysis.CSharp.Features.resources.dll">
       <publishTime>11/12/2022 01:16:28</publishTime>
@@ -261,16 +261,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/12/2022 01:09:18</publishTime>
     </File>
     <File Include="ku/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="lv/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Microsoft.AspNetCore.Razor.Language.dll">
-      <publishTime>10/23/2022 19:37:24</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Microsoft.Bcl.AsyncInterfaces.dll">
-      <publishTime>10/22/2021 20:47:36</publishTime>
+      <publishTime>04/14/2020 19:39:12</publishTime>
     </File>
     <File Include="Microsoft.Build.dll">
       <publishTime>09/12/2022 20:29:46</publishTime>
@@ -300,7 +300,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/12/2022 01:12:20</publishTime>
     </File>
     <File Include="Microsoft.CodeAnalysis.Razor.dll">
-      <publishTime>10/23/2022 19:37:32</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Microsoft.CodeAnalysis.Scripting.dll">
       <publishTime>11/12/2022 01:09:46</publishTime>
@@ -381,52 +381,52 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/22/2021 20:40:24</publishTime>
     </File>
     <File Include="ms-MY/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:08</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="mt/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:08</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="nb-NO/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:08</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="nb/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:08</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Newtonsoft.Json.dll">
-      <publishTime>03/17/2021 17:03:36</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="nl/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:10</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="NuGet.Common.dll">
-      <publishTime>05/30/2023 15:50:56</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="NuGet.Configuration.dll">
-      <publishTime>05/30/2023 15:50:56</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="NuGet.DependencyResolver.Core.dll">
-      <publishTime>05/30/2023 15:51:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="NuGet.Frameworks.dll">
-      <publishTime>05/30/2023 15:51:14</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="NuGet.LibraryModel.dll">
-      <publishTime>05/30/2023 15:50:56</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="NuGet.Packaging.dll">
-      <publishTime>05/30/2023 15:51:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="NuGet.ProjectModel.dll">
-      <publishTime>05/30/2023 15:51:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="NuGet.Protocol.dll">
-      <publishTime>05/30/2023 15:51:14</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="NuGet.Versioning.dll">
-      <publishTime>05/30/2023 15:55:08</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="pl/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:10</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="pl/Microsoft.CodeAnalysis.CSharp.Features.resources.dll">
       <publishTime>11/12/2022 01:16:28</publishTime>
@@ -471,13 +471,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/12/2022 01:09:18</publishTime>
     </File>
     <File Include="pt/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:10</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="ro/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:12</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="ru/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="ru/Microsoft.CodeAnalysis.CSharp.Features.resources.dll">
       <publishTime>11/12/2022 01:16:28</publishTime>
@@ -537,34 +537,34 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/22/2021 20:49:58</publishTime>
     </File>
     <File Include="sk/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="sl/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:06</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="sr-Latn/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:08</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="sr/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:08</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="sv/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:08</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="System.Composition.AttributedModel.dll">
-      <publishTime>10/22/2021 20:47:50</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="System.Composition.Convention.dll">
-      <publishTime>10/22/2021 20:47:54</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="System.Composition.Hosting.dll">
-      <publishTime>10/22/2021 20:47:52</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="System.Composition.Runtime.dll">
-      <publishTime>10/22/2021 20:47:52</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="System.Composition.TypedParts.dll">
-      <publishTime>10/22/2021 20:48:02</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="System.Configuration.ConfigurationManager.dll">
       <publishTime>08/19/2022 16:58:02</publishTime>
@@ -579,7 +579,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/08/2021 13:45:54</publishTime>
     </File>
     <File Include="System.Reflection.MetadataLoadContext.dll">
-      <publishTime>10/22/2021 20:49:10</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="System.Runtime.Caching.dll">
       <publishTime>10/22/2021 20:52:02</publishTime>
@@ -594,10 +594,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/22/2021 20:49:44</publishTime>
     </File>
     <File Include="th-TH/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:10</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="tr/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:10</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="tr/Microsoft.CodeAnalysis.CSharp.Features.resources.dll">
       <publishTime>11/12/2022 01:16:28</publishTime>
@@ -621,31 +621,34 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/12/2022 01:09:18</publishTime>
     </File>
     <File Include="uk/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:10</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="uz-Cyrl-UZ/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:12</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="uz-Latn-UZ/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:12</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="vi/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:12</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>11/22/2023 21:45:49</publishTime>
+      <publishTime>11/24/2023 21:20:39</publishTime>
     </File>
     <File Include="wwwroot/CargarCarta.styles.css">
       <publishTime>11/22/2023 21:45:44</publishTime>
     </File>
     <File Include="wwwroot/css/site.css">
-      <publishTime>10/27/2023 19:34:09</publishTime>
+      <publishTime>11/24/2023 14:47:47</publishTime>
     </File>
     <File Include="wwwroot/favicon.ico">
-      <publishTime>10/27/2023 19:34:09</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="wwwroot/img/Vidon bar ORIGINAL.png">
       <publishTime>10/04/2023 17:14:57</publishTime>
+    </File>
+    <File Include="wwwroot/js/rubros.js">
+      <publishTime>11/23/2023 20:22:33</publishTime>
     </File>
     <File Include="wwwroot/js/site.js">
       <publishTime>10/27/2023 19:34:09</publishTime>
@@ -822,10 +825,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/27/2023 19:34:09</publishTime>
     </File>
     <File Include="zh-CN/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:12</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="zh-Hans/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:12</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="zh-Hans/Microsoft.CodeAnalysis.CSharp.Features.resources.dll">
       <publishTime>11/12/2022 01:16:28</publishTime>
@@ -849,7 +852,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/12/2022 01:09:18</publishTime>
     </File>
     <File Include="zh-Hant/Humanizer.resources.dll">
-      <publishTime>01/29/2022 12:04:14</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="zh-Hant/Microsoft.CodeAnalysis.CSharp.Features.resources.dll">
       <publishTime>11/12/2022 01:16:28</publishTime>

@@ -101,6 +101,7 @@ namespace CargarCarta.Controllers
             Etiqueta
         }
 
+        [HttpPost]
         public async Task<IActionResult> Borrar(int? id, EntityType entityType)
         {
             if (id == null)
@@ -280,9 +281,14 @@ namespace CargarCarta.Controllers
         //--
 
         [HttpGet]
-        public IActionResult Articulos()
+        public async Task<IActionResult> Articulos()
         {
-            return View();
+            var rubros = await _VContext.Rubros.ToListAsync();
+            var subrubros = await _VContext.Subrubros.ToListAsync();
+            var etiquetas = await _VContext.Etiquetas.ToListAsync();
+            var model = new GestionViewModel { RubroTabla = rubros, SubrubroTabla = subrubros, EtiquetaTabla = etiquetas };
+
+            return View(model);
         }
 
         [HttpGet]

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "tiLQ7+P1kpQiRssoydxk0DOHJARzAeUI/v+TvQ7yHiY=",
+  "Hash": "HdWaGemWbTQ1lEa4gXg5YgCHw4scYjNhJTOmUDQG/xI=",
   "Source": "CargarCarta",
   "BasePath": "_content/CargarCarta",
   "Mode": "Default",
@@ -68,23 +68,6 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Proyectos\\Vidon Bar\\Carta Vidon\\CartaVidon\\CargarDatos\\CargarCarta\\CargarCarta\\wwwroot\\favicon.ico",
-      "SourceId": "CargarCarta",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Proyectos\\Vidon Bar\\Carta Vidon\\CartaVidon\\CargarDatos\\CargarCarta\\CargarCarta\\wwwroot\\",
-      "BasePath": "_content/CargarCarta",
-      "RelativePath": "favicon.ico",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\favicon.ico"
-    },
-    {
       "Identity": "C:\\Proyectos\\Vidon Bar\\Carta Vidon\\CartaVidon\\CargarDatos\\CargarCarta\\CargarCarta\\wwwroot\\img\\Vidon bar ORIGINAL.png",
       "SourceId": "CargarCarta",
       "SourceType": "Discovered",
@@ -100,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\Vidon bar ORIGINAL.png"
+    },
+    {
+      "Identity": "C:\\Proyectos\\Vidon Bar\\Carta Vidon\\CartaVidon\\CargarDatos\\CargarCarta\\CargarCarta\\wwwroot\\js\\rubros.js",
+      "SourceId": "CargarCarta",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Proyectos\\Vidon Bar\\Carta Vidon\\CartaVidon\\CargarDatos\\CargarCarta\\CargarCarta\\wwwroot\\",
+      "BasePath": "_content/CargarCarta",
+      "RelativePath": "js/rubros.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\rubros.js"
     },
     {
       "Identity": "C:\\Proyectos\\Vidon Bar\\Carta Vidon\\CartaVidon\\CargarDatos\\CargarCarta\\CargarCarta\\wwwroot\\js\\site.js",

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "b7pD6Ufji4iq3TRn1C9TRcF3rMbyOUmGZohdiBbU+iU=",
+  "Hash": "ffDMu+rmsEUY4IQU64KYILXbe3Ns7K0S0noo3cBdFog=",
   "Source": "CargarCarta",
   "BasePath": "_content/CargarCarta",
   "Mode": "Default",
@@ -66,23 +66,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
-    },
-    {
-      "Identity": "C:\\Proyectos\\Vidon Bar\\Carta Vidon\\CartaVidon\\CargarDatos\\CargarCarta\\CargarCarta\\wwwroot\\favicon.ico",
-      "SourceId": "CargarCarta",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Proyectos\\Vidon Bar\\Carta Vidon\\CartaVidon\\CargarDatos\\CargarCarta\\CargarCarta\\wwwroot\\",
-      "BasePath": "_content/CargarCarta",
-      "RelativePath": "favicon.ico",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
       "Identity": "C:\\Proyectos\\Vidon Bar\\Carta Vidon\\CartaVidon\\CargarDatos\\CargarCarta\\CargarCarta\\wwwroot\\img\\Vidon bar ORIGINAL.png",
