@@ -27,6 +27,8 @@ public partial class Vvoucher2Context : DbContext
 
     public virtual DbSet<Subrubro> Subrubros { get; set; }
 
+    public virtual DbSet<Sucursales> Sucusales { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
     
@@ -152,6 +154,19 @@ public partial class Vvoucher2Context : DbContext
             entity.HasOne(d => d.oRubro).WithMany(p => p.Subrubros)
                 .HasForeignKey(d => d.IdRubro)
                 .HasConstraintName("FK__Subrubros__idRub__7EF6D905");
+        });
+
+        modelBuilder.Entity<Sucursales>(entity =>
+        {
+            entity.HasKey(e => e.IdSucursal);
+
+            entity.ToTable("SUCURSALES");
+
+            entity.Property(e => e.IdSucursal).HasColumnName("idSucursal");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("nombre");
         });
 
         OnModelCreatingPartial(modelBuilder);

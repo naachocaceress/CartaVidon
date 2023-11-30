@@ -18,3 +18,165 @@ html, body {
     max-width: 100%;
     height: auto;
 }
+
+/* -- */
+
+@media (max-width:359px) {
+    .navigation {
+        transform: scale(0.9);
+    }
+}
+
+@media (min-width: 360px) and (max-width:767px) {
+    .navigation {
+        transform: scale(1);
+    }
+}
+
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .navigation {
+        transform: scale(1.1);
+    }
+}
+
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+    .navigation {
+        transform: scale(1.1);
+    }
+}
+
+
+@media (min-width: 1200px) {
+    .navigation {
+        transform: scale(1.1);
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial
+}
+
+svg {
+    width: 30px;
+}
+
+:root {
+    --clr: #f0deaf;
+    --clrp: #1b8547;
+}
+
+.bottombar_container {
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin: 0;
+}
+
+
+.navigation {
+    height: 70px;
+    background: var(--clrp);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    width:400px;
+}
+
+    .navigation ul {
+        display: flex;
+        width: 350px;
+    }
+
+        .navigation ul li {
+            position: relative;
+            list-style: none;
+            width: 70px;
+            height: 70px;
+            z-index: 1;
+        }
+
+            .navigation ul li .aBottombar {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                font-weight: 500;
+            }
+
+                .navigation ul li .aBottombar .icon {
+                    position: relative;
+                    display: block;
+                    line-height: 75px;
+                    font-size: 1.5em;
+                    text-align: center;
+                    transition: 0.5s;
+                    color: var(--clr);
+                }
+
+            .navigation ul li.active .aBottombar .icon {
+                transform: translateY(-30px);
+            }
+
+            .navigation ul li .aBottombar .text {
+                position: absolute;
+                color: var(--clr);
+                font-weight: 400;
+                font-size: 0.75em;
+                letter-spacing: 0.05em;
+                transition: 0.5s;
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            .navigation ul li.active .aBottombar .text {
+                opacity: 1;
+                transform: translateY(10px);
+            }
+
+.indicator {
+    position: absolute;
+    top: -50%;
+    width: 70px;
+    height: 70px;
+    background: var(--clrp);
+    border-radius: 50px;
+    border: 6px solid var(--clr);
+    transition: 0.5s;
+}
+
+    
+
+.navigation ul li:nth-child(1).active ~ .indicator {
+    transform: translateX(calc(70px * 0));
+}
+
+.navigation ul li:nth-child(2).active ~ .indicator {
+    transform: translateX(calc(70px * 1));
+}
+
+.navigation ul li:nth-child(3).active ~ .indicator {
+    transform: translateX(calc(70px * 2));
+}
+
+.navigation ul li:nth-child(4).active ~ .indicator {
+    transform: translateX(calc(70px * 3));
+}
+
+.navigation ul li:nth-child(5).active ~ .indicator {
+    transform: translateX(calc(70px * 4));
+}
+

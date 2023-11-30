@@ -23,6 +23,25 @@ namespace CargarCarta.Controllers
 
         //--
 
+        public async Task<IActionResult> Cargar<T>(T obj, Func<T, Task<T>> findExisting)
+        {
+            var existing = await findExisting(obj);
+
+            if (existing != null)
+            {
+                return Json(new { error = $"Ya existe un {typeof(T).Name} con ese nombre." });
+            }
+            else
+            {
+                _VContext.Add(obj);
+                await _VContext.SaveChangesAsync();
+                return Json(obj);
+            }
+        }
+
+
+        #region Rubros
+
         public class GestionViewModel
         {
             public Rubro Rubro { get; set; }
@@ -47,22 +66,6 @@ namespace CargarCarta.Controllers
         }
 
         // --
-
-        public async Task<IActionResult> Cargar<T>(T obj, Func<T, Task<T>> findExisting)
-        {
-            var existing = await findExisting(obj);
-
-            if (existing != null)
-            {
-                return Json(new { error = $"Ya existe un {typeof(T).Name} con ese nombre." });
-            }
-            else
-            {
-                _VContext.Add(obj);
-                await _VContext.SaveChangesAsync();
-                return Json(obj);
-            }
-        }
 
 
         [HttpPost]
@@ -166,6 +169,7 @@ namespace CargarCarta.Controllers
         }
 
         // --
+
 
         [HttpGet]
         public async Task<IActionResult> GetSubrubros()
@@ -278,23 +282,77 @@ namespace CargarCarta.Controllers
             return Json(new { success = true });
         }
 
+        #endregion
+
         //--
+
+        #region Articulos
+
+        public class GestionArticulosViewModel
+        {
+            public Articulo Articulo { get; set; }
+            public IEnumerable<Articulo> ArticuloTabla { get; set; }
+
+            public ArticulosPorSucursal ArtiSucu { get; set; }
+            public IEnumerable<ArticulosPorSucursal> ArtiSucuTabla { get; set; }
+
+            public ArticulosEtiqueta ArtiEti { get; set; }
+            public IEnumerable<ArticulosEtiqueta> ArtiEtiTabla { get; set; }
+
+            public Subrubro Subrubro { get; set; }
+            public IEnumerable<Subrubro> SubrubroTabla { get; set; }
+
+            public Etiqueta Etiqueta { get; set; }
+            public IEnumerable<Etiqueta> EtiquetaTabla { get; set; }
+
+            public Sucursales Sucursal { get; set; }
+            public IEnumerable<Sucursales> SucursalTabla { get; set; }
+
+            public Rubro Rubro { get; set; }
+            public IEnumerable<Rubro> RubroTabla { get; set; }
+        }
 
         [HttpGet]
         public async Task<IActionResult> Articulos()
         {
-            var rubros = await _VContext.Rubros.ToListAsync();
+            var articulos = await _VContext.Articulos.ToListAsync();
             var subrubros = await _VContext.Subrubros.ToListAsync();
             var etiquetas = await _VContext.Etiquetas.ToListAsync();
-            var model = new GestionViewModel { RubroTabla = rubros, SubrubroTabla = subrubros, EtiquetaTabla = etiquetas };
+            var sucursales = await _VContext.Sucusales.ToListAsync();
+            var model = new GestionArticulosViewModel { ArticuloTabla = articulos, SubrubroTabla = subrubros, EtiquetaTabla = etiquetas, SucursalTabla = sucursales };
 
             return View(model);
         }
 
-        [HttpGet]
-        public IActionResult Precios()
+        //--
+
+        [HttpPost]
+        public async Task<IActionResult> CargarArticulo(GestionArticulosViewModel viewModel, Articulo articulos)
         {
-            return View();
+            _VContext.Articulos.Add(viewModel.Articulo);
+            await _VContext.SaveChangesAsync();
+            articulos = viewModel.Articulo;
+
+            return RedirectToAction(nameof(Articulos));
+        }
+
+
+
+        #endregion
+
+        //--
+
+        [HttpGet]
+        public async Task<IActionResult> Precios()
+        {
+            var articulos = await _VContext.Articulos.ToListAsync();
+            var subrubros = await _VContext.Subrubros.ToListAsync();
+            var etiquetas = await _VContext.Etiquetas.ToListAsync();
+            var sucursales = await _VContext.Sucusales.ToListAsync();
+            var rubros = await _VContext.Rubros.ToListAsync();
+            var model = new GestionArticulosViewModel { ArticuloTabla = articulos, SubrubroTabla = subrubros, EtiquetaTabla = etiquetas, SucursalTabla = sucursales, RubroTabla = rubros };
+
+            return View(model);
         }
 
     }

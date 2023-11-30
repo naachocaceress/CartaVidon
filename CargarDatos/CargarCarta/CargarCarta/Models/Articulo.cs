@@ -25,6 +25,8 @@ public partial class Articulo
 
     public virtual ICollection<ArticulosEtiqueta> ArticulosEtiqueta { get; set; } = new List<ArticulosEtiqueta>();
 
+    public virtual ICollection<Sucursales> Sucursales { get; set; } = new List<Sucursales>();
+
     public virtual ICollection<ArticulosPorSucursal> ArticulosPorSucursals { get; set; } = new List<ArticulosPorSucursal>();
 
     public virtual Subrubro? oSubrubro { get; set; }

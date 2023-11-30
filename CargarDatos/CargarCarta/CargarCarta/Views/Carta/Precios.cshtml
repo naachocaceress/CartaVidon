@@ -1,5 +1,272 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model CargarCarta.Controllers.CartaController.GestionArticulosViewModel
+
 @{
+    ViewData["Title"] = "Gestion Precios";
 }
+<br />
+<h2 class="pb-2 border-bottom">Gestion Precios</h2>
+
+
+<div class="container px-2 py-5 d-flex justify-content-center">
+
+    <br />
+
+    <div class="col-md-7 col-lg-8">
+
+        <h4 class="mb-3 border-bottom">Cambiar</h4>
+
+        <form id="myForm" asp-action="CargarArticulo" method="POST">
+            <div class="row g-3 align-items-center">
+                <div class="col-sm-6">
+                    <label for="username" class="form-label">Precio</label>
+                    <div class="input-group mb-3">
+                        <select class="input-group-text">
+                            <option>$</option>
+                            <option>%</option>
+                        </select>
+                        <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-check py-2">
+                        <input class="form-check-input" type="radio" name="options" id="radio1" value="" checked>
+                        <label class="form-check-label" for="radio1">
+                            Subir precios
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-check py-2">
+                        <input class="form-check-input" type="radio" name="options" id="radio2" value="">
+                        <label class="form-check-label" for="radio2">
+                            Bajar precios
+                        </label>
+                    </div>
+                </div>
+
+
+
+                <h4 class="mb-3 border-bottom">Filtros</h4>
+
+
+                <div class="col-6">
+                    <label for="address" class="form-label">Sucursales</label>
+                    @if (Model.SucursalTabla != null)
+                    {
+                        <select asp-for="ArtiSucu.IdSucursal" asp-items="@(new SelectList(Model.SucursalTabla, nameof(Sucursales.IdSucursal), nameof(Sucursales.Nombre)))" class="form-select" aria-label="Default select example" required>
+                        </select>
+                    }
+                    else
+                    {
+                        <p>No hay datos disponibles para el SelectList.</p>
+                    }
+                    <small class="text-body-secondary">
+                        
+                    </small>
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="Nombre" class="form-label">Rubro</label>
+                    @if (Model.RubroTabla != null)
+                    {
+                        <select asp-for="Subrubro.IdRubro" asp-items="@(new SelectList(Model.RubroTabla, nameof(Rubro.IdRubro), nameof(Rubro.Nombre)))" class="form-select" aria-label="Default select example" required>
+                            <option>Todos los rubros</option>
+                        </select>
+                    }
+                    else
+                    {
+                        <p>No hay datos disponibles para el SelectList.</p>
+                    }
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="address" class="form-label">Etiquetas</label>
+                    @if (Model.EtiquetaTabla != null)
+                    {
+                        <select asp-for="ArtiEti.IdEtiqueta" asp-items="@(new SelectList(Model.EtiquetaTabla, nameof(Etiqueta.IdEtiqueta), nameof(Etiqueta.Nombre)))" class="form-select" aria-label="Default select example" required>
+                            <option>Todas las etiquetas</option>
+                        </select>
+                    }
+                    else
+                    {
+                        <p>No hay datos disponibles para el SelectList.</p>
+                    }
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="address" class="form-label">Subrubros</label>
+                    @if (Model.SubrubroTabla != null)
+                    {
+                        <select asp-for="Articulo.IdSubrubro" asp-items="@(new SelectList(Model.SubrubroTabla, nameof(Subrubro.IdSubrubro), nameof(Subrubro.Nombre)))" class="form-select" aria-label="Default select example" required>
+                            <option>Todos los subrubros</option>
+                        </select>
+                    }
+                    else
+                    {
+                        <p>No hay datos disponibles para el SelectList.</p>
+                    }
+                </div>  
+                
+                    <div class="col">
+                        <label for="fecha1" class="form-label">Desde</label>
+                        <input type="date" class="form-control" id="fecha1">
+                    </div>
+                    <div class="col">
+                        <label for="fecha2" class="form-label">Hasta</label>
+                        <input type="date" class="form-control" id="fecha2">
+                    </div>
+
+
+
+                
+
+                <button class="w-100 btn btn-success btn-lg" id="myButton" type="submit">Guardar nuevos precios</button>
+
+            </div>
+        </form>
+    </div>
+    <br />
+
+    
+
+</div>
+
+<div class="container px-2 py-5">
+
+@if (Model.ArticuloTabla.Count() > 0)
+{
+    <div class="p-2">
+        <div class="table-responsive">
+        <table class="table table-striped text-center" id="tblArticulosCompleta" cellspacing="0">
+            <thead>
+                <tr class="text-center">
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Puntos</th>
+                    <th>Descripcion</th>
+                    <th>Receta</th>
+                    <th>Imagen</th>
+                    <th>Video</th>
+                    <th class="fixed-column">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var articulo in Model.ArticuloTabla)
+                {
+                    <tr data-id="@articulo.IdArticulo">
+                        <td>@Html.DisplayFor(m => articulo.Nombre)</td>
+                        <td class="nombre-articulo">@Html.DisplayFor(m => articulo.Nombre)</td>
+                        <td class="precio-articulo">@Html.DisplayFor(m => articulo.Precio)</td>
+                        <td class="puntos-articulo">@Html.DisplayFor(m => articulo.Puntos)</td>
+                        <td class="desc-articulo">@Html.DisplayFor(m => articulo.Descripcion)</td>
+                        <td class="receta-articulo">@Html.DisplayFor(m => articulo.Receta)</td>
+                        <td class="imagen-articulo">@Html.DisplayFor(m => articulo.Imagen)</td>
+                        <td class="video-articulo">@Html.DisplayFor(m => articulo.Video)</td>
+                        <td class="fixed-column">
+                            <div class="btn-group">
+                                <a class="btn btn-outline-primary btn-sm edit-btn-articulo" data-id="@articulo.IdArticulo" data-name="@articulo.Nombre"><svg width="16" height="16"><use href="#icono-editar" /></svg></a>
+                                <a class="btn btn-outline-danger btn-sm delete-btn-articulo" data-id="@articulo.IdArticulo" data-name="@articulo.Nombre"><svg width="16" height="16"><use href="#icono-eliminar" /></svg></a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+            <tfoot>
+                <tr class="text-center">
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Puntos</th>
+                    <th>Descripcion</th>
+                    <th>Receta</th>
+                    <th>Imagen</th>
+                    <th>Video</th>
+                    <th class="fixed-column">Acciones</th>
+                </tr>
+            </tfoot>
+
+        </table>
+        </div>
+    </div>
+    <br />
+}
+else
+{
+    <br />
+    <h4 class="text-center">Sin resultados aún</h4>
+}
+</div>
+
+<style>
+    #tblArticulos {
+        border: 2px solid #f2f2f2;
+        margin-bottom: 0;
+    }
+
+
+    .dataTables_wrapper .dataTables_length label {
+        display: flex;
+        align-items: center;
+        padding-top: 10px;
+    }
+
+    .dataTables_wrapper .dataTables_length select {
+        margin: 10px; /* Agregar un margen izquierdo para separar "Mostrar" del select */
+        width: 90px;
+    }
+
+    .dataTables_filter {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 10px;
+    }
+
+    .pagination {
+        justify-content: flex-end;
+    }
+
+    .dataTables_info {
+        padding: 10px;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        inicializarTabla('#tblArticulosCompleta');
+    });
+
+    function inicializarTabla(tablaId) {
+        var table = $(tablaId).DataTable({
+            "order": [[0, "desc"]],
+            "lengthMenu": [[50, 100, 500, -1], [50, 100, 500, 'Todos']
+            ],
+            "language": {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                "infoEmpty": "Mostrando 0 a 0 de 0 Entradas",
+                "infoFiltered": "(filtrado de _MAX_ entradas en total)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ Entradas",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            }
+        });
+    }
+
+    // Carga --
+
+
+
+</script>

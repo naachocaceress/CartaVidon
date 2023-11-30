@@ -73,3 +73,4 @@ C:\Proyectos\Vidon Bar\Carta Vidon\CartaVidon\CargarDatos\CargarCarta\CargarCart
 C:\Proyectos\Vidon Bar\Carta Vidon\CartaVidon\CargarDatos\CargarCarta\CargarCarta\obj\Debug\net7.0\CargarCarta.pdb
 C:\Proyectos\Vidon Bar\Carta Vidon\CartaVidon\CargarDatos\CargarCarta\CargarCarta\obj\Debug\net7.0\CargarCarta.genruntimeconfig.cache
 C:\Proyectos\Vidon Bar\Carta Vidon\CartaVidon\CargarDatos\CargarCarta\CargarCarta\obj\Debug\net7.0\ref\CargarCarta.dll
+C:\Proyectos\Vidon Bar\Carta Vidon\CartaVidon\CargarDatos\CargarCarta\CargarCarta\obj\Debug\net7.0\CargarCarta.sourcelink.json
