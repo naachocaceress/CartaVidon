@@ -29,10 +29,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var articulo in Model.ArticuloTabla)
+                            @foreach (var articulo in Model.ArticuloTabla.OrderByDescending(a => a.IdArticulo).Take(5))
                             {
                                 <tr data-id="@articulo.IdArticulo">
-                                    <td>@Html.DisplayFor(m => articulo.Nombre)</td>
+                                    <td>@Html.DisplayFor(m => articulo.IdArticulo)</td>
                                     <td class="nombre-articulo">@Html.DisplayFor(m => articulo.Nombre)</td>
                                     <td class="fixed-column">
                                         <div class="btn-group">
@@ -69,7 +69,7 @@
 
             <h4 class="mb-3">Cargar</h4>
 
-            <form id="myForm" asp-action="CargarArticulo" method="POST">
+            <form id="myForm" asp-action="CargarArticulo" enctype="multipart/form-data" method="POST">
                 <div class="row g-3">
 
                     <div class="col-sm-6">
@@ -82,22 +82,39 @@
                         <label for="username" class="form-label">Precio</label>
                         <div class="input-group has-validation">
                             <span class="input-group-text">$</span>
-                            <input asp-for="Articulo.Precio" type="text" class="form-control" id="precioArticulo" required>
+                            <input asp-for="Articulo.Precio" type="number" class="form-control" id="precioArticulo" required>
                         </div>
                     </div>
 
                     <div class="col-sm-3">
                         <label for="address" class="form-label">Puntos <span class="text-body-secondary">(Opcional)</span></label>
-                        <input asp-for="Articulo.Puntos" type="text" class="form-control" id="puntosArticulo" >
+                        <input asp-for="Articulo.Puntos" type="number" class="form-control" id="puntosArticulo" >
                     </div>
 
+                    <div class="col-12">
+                        <label for="address" class="form-label">Sucursales</label>
+                        @if (Model.SucursalTabla != null)
+                        {
+                            <select asp-for="IdSucursal" asp-items="@(new SelectList(Model.SucursalTabla, nameof(Sucursales.IdSucursal), nameof(Sucursales.Nombre)))" class="form-control js-example-basic-multiple" name="IdSucursal" multiple="multiple" required>
+                            </select>
+                        }
+                        else
+                        {
+                            <p>No hay datos disponibles para el SelectList.</p>
+                        }
+                    </div>
 
                     <div class="col-sm-6">
                         <label for="address" class="form-label">Subrubros</label>
                             @if (Model.SubrubroTabla != null)
                             {
-                                <select asp-for="Articulo.IdSubrubro" asp-items="@(new SelectList(Model.SubrubroTabla, nameof(Subrubro.IdSubrubro), nameof(Subrubro.Nombre)))" class="form-select" aria-label="Default select example" required>
-                                </select>
+                            <select asp-for="Articulo.IdSubrubro" class="form-select" aria-label="Default select example" required>
+                                <option value="">-- Elige una opción --</option>
+                                @foreach (var item in Model.SubrubroTabla)
+                                {
+                                    <option value="@item.IdSubrubro">@item.Nombre</option>
+                                }
+                            </select>
                             }
                             else
                             {
@@ -107,16 +124,21 @@
 
                     <div class="col-sm-6">
                         <label for="address" class="form-label">Etiquetas <span class="text-body-secondary">(Opcional)</span></label>
-                            @if (Model.EtiquetaTabla != null)
-                            {
-                                <select asp-for="ArtiEti.IdEtiqueta" asp-items="@(new SelectList(Model.EtiquetaTabla, nameof(Etiqueta.IdEtiqueta), nameof(Etiqueta.Nombre)))" class="form-select" aria-label="Default select example" required>
-                                </select>
-                            }
-                            else
-                            {
-                                <p>No hay datos disponibles para el SelectList.</p>
-                            }
+                        @if (Model.EtiquetaTabla != null)
+                        {
+                            <select asp-for="ArtiEti.IdEtiqueta" class="form-control js-example-basic-multiple" name="IdEtiqueta" multiple="multiple">
+                                @foreach (var item in Model.EtiquetaTabla)
+                                {
+                                    <option value="@item.IdEtiqueta">@item.Nombre</option>
+                                }
+                            </select>
+                        }
+                        else
+                        {
+                            <p>No hay datos disponibles para el SelectList.</p>
+                        }
                     </div>
+
 
                     <div class="col-12">
                         <label for="lastName" class="form-label">Descripcion</label>
@@ -125,75 +147,23 @@
 
                     <div class="col-12">
                         <label for="email" class="form-label">Receta <span class="text-body-secondary">(Opcional)</span></label>
-                        <textarea asp-for="Articulo.Receta" type="text" class="form-control" id="recetaArticulo" rows="3" required></textarea>
+                        <textarea asp-for="Articulo.Receta" type="text" class="form-control" id="recetaArticulo" rows="3"></textarea>
+                    </div>
+            
+
+                    <div class="col-md-6">
+                        <label class="form-label">Imagen <span class="text-body-secondary">(Opcional)</span></label>
+                        <input type="file" class="form-control" id="imagenArticulo" name="Imagen">
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <label class="form-label">Video <span class="text-body-secondary">(Opcional)</span></label>
+                        <input type="file" class="form-control" id="imagenArticulo" name="Video">
                     </div>
 
                     
-
-                    <div class="col-md-6">
-                        <label for="address2" class="form-label">Imagen <span class="text-body-secondary">(Opcional)</span></label>
-                        <input asp-for="Articulo.Imagen" type="file" class="form-control" id="imagenArticulo">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="address2" class="form-label">Video <span class="text-body-secondary">(Opcional)</span></label>
-                        <input asp-for="Articulo.Video" type="file" class="form-control" id="videoArticulo">
-                    </div>
-
-                    
-                </div>
-
-                <hr class="my-4">
-
-                <h4 class="mb-3">Sucursales para el articulo</h4>
- 
-
-                <div class="col-12">
-                    <label for="address" class="form-label">Sucursales</label>
-                    @if (Model.SucursalTabla != null)
-                    {
-                        <select asp-for="ArtiSucu.IdSucursal" asp-items="@(new SelectList(Model.SucursalTabla, nameof(Sucursales.IdSucursal), nameof(Sucursales.Nombre)))" class="form-select" aria-label="Default select example" required>
-                        </select>
-                    }
-                    else
-                    {
-                        <p>No hay datos disponibles para el SelectList.</p>
-                    }    
-                    <small class="text-body-secondary">
-                        A la cual va a estar disponible
-                    </small>
-                </div>
-
-                <br />
-
-
-                <div class="row g-3">
-
-                <div class="col-sm-9">
-                    <label for="address" class="form-label">Sucursales con precio distinto <span class="text-body-secondary">(Opcional)</span></label>
-                        @if (Model.SucursalTabla != null)
-                        {
-                            <select asp-for="ArtiSucu.IdSucursal" asp-items="@(new SelectList(Model.SucursalTabla, nameof(Sucursales.IdSucursal), nameof(Sucursales.Nombre)))" class="form-select" aria-label="Default select example" required>
-                            </select>
-                        }
-                        else
-                        {
-                            <p>No hay datos disponibles para el SelectList.</p>
-                        }
-                    <small class="text-body-secondary">
-                        
-                    </small>
-                </div>
-
-                <div class="col-sm-3">
-                    <label for="username" class="form-label">Precio</label>
-                    <div class="input-group has-validation">
-                        <span class="input-group-text">$</span>
-                            <input asp-for="ArtiSucu.Precio" type="text" class="form-control" id="precioArticuloSucu">
-                        </div>
-                </div>
-
-                </div>
+                </div>                
 
                 <hr class="my-4">
 
@@ -210,7 +180,7 @@
   <div class="modal-dialog modal-dialog-centered modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="miModalLabel">Mi modal</h5>
+        <h5 class="modal-title" id="miModalLabel">Todos los articulos</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
@@ -232,22 +202,47 @@
                                     <th>Receta</th>
                                     <th>Imagen</th>
                                     <th>Video</th>
+                                    <th>Subrubros</th>
+                                    <th>Etiquetas</th>
+                                    <th>Sucursales</th>
                                     <th class="fixed-column">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var articulo in Model.ArticuloTabla)
                                 {
+                                        var sucursales = Model.ArtiSucuTabla.Where(c => c.IdArticulo == articulo.IdArticulo && c.oSucursales != null)
+                                        .Select(c => c.oSucursales.Nombre);
+
+                                        var etiqueta = Model.ArtiEtiTabla.Where(c => c.IdArticulo == articulo.IdArticulo && c.oEtiqueta != null)
+                                        .Select(c => c.oEtiqueta.Nombre);
+
                                     <tr data-id="@articulo.IdArticulo">
-                                        <td>@Html.DisplayFor(m => articulo.Nombre)</td>
+                                        <td>@Html.DisplayFor(m => articulo.IdArticulo)</td>
                                         <td class="nombre-articulo">@Html.DisplayFor(m => articulo.Nombre)</td>
                                         <td class="precio-articulo">@Html.DisplayFor(m => articulo.Precio)</td>
                                         <td class="puntos-articulo">@Html.DisplayFor(m => articulo.Puntos)</td>
                                         <td class="desc-articulo">@Html.DisplayFor(m => articulo.Descripcion)</td>
                                         <td class="receta-articulo">@Html.DisplayFor(m => articulo.Receta)</td>
-                                        <td class="imagen-articulo">@Html.DisplayFor(m => articulo.Imagen)</td>
-                                        <td class="video-articulo">@Html.DisplayFor(m => articulo.Video)</td>
-                                        <td class="fixed-column">
+                                            <td class="imagen-articulo">
+                                                @if (articulo.Imagen != null)
+                                                {
+                                                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(articulo.Imagen)" alt="Imagen del artículo"  width="100px"/>
+                                                }
+                                            </td>
+                                            <td class="video-articulo">
+                                                @if (articulo.Video != null)
+                                                {
+                                                    <video controls width="100px;">
+                                                        <source src="data:video/mp4;base64,@Convert.ToBase64String(articulo.Video)" type="video/mp4"/>
+                                                        Tu navegador no soporta la etiqueta video de HTML5.
+                                                    </video>
+                                                }
+                                            </td>
+                                        <td class="subrubro-articulo">@Html.DisplayFor(m => articulo.oSubrubro.Nombre)</td>
+                                            <td class="sucu-etiqueta">@string.Join(", ", etiqueta)</td>
+                                            <td class="sucu-articulo">@string.Join(", ", sucursales)</td>
+                                            <td class="fixed-column">
                                             <div class="btn-group">
                                                 <a class="btn btn-outline-primary btn-sm edit-btn-articulo" data-id="@articulo.IdArticulo" data-name="@articulo.Nombre"><svg width="16" height="16"><use href="#icono-editar" /></svg></a>
                                                 <a class="btn btn-outline-danger btn-sm delete-btn-articulo" data-id="@articulo.IdArticulo" data-name="@articulo.Nombre"><svg width="16" height="16"><use href="#icono-eliminar" /></svg></a>
@@ -258,17 +253,20 @@
 
                             </tbody>
                             <tfoot>
-                                <tr class="text-center">
-                                    <th>ID</th>
-                                    <th>Nombre</th>
-                                    <th>Precio</th>
-                                    <th>Puntos</th>
-                                    <th>Descripcion</th>
-                                    <th>Receta</th>
-                                    <th>Imagen</th>
-                                    <th>Video</th>
-                                    <th class="fixed-column">Acciones</th>
-                                </tr>
+                                    <tr class="text-center">
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Precio</th>
+                                        <th>Puntos</th>
+                                        <th>Descripcion</th>
+                                        <th>Receta</th>
+                                        <th>Imagen</th>
+                                        <th>Video</th>
+                                        <th>Subrubros</th>
+                                        <th>Etiquetas</th>
+                                        <th>Sucursales</th>
+                                        <th class="fixed-column">Acciones</th>
+                                    </tr>
                             </tfoot>
 
                         </table>
@@ -321,9 +319,29 @@
     .dataTables_info {
         padding: 10px;
     }
+
+    /* -- */
+
+    .select2-container--default .select2-selection--multiple {
+        border: 1px solid #ced4da !important;
+        border-radius: 6px !important;
+        padding: 6px !important;
+    }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            margin-top: 0 !important;
+            border: 0 !important;
+            background-color: #e9ecef !important;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+            border: 0 !important;
+        }
+
 </style>
 
 <script>
+
     $(document).ready(function () {
         inicializarTabla('#tblArticulosCompleta');
     });
@@ -355,6 +373,10 @@
             }
         });
     }
+
+    $(document).ready(function () {
+        $('.js-example-basic-multiple').select2();
+    });
 
     // Carga --
 

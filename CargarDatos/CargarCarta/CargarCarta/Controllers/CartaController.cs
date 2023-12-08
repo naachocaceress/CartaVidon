@@ -304,22 +304,31 @@ namespace CargarCarta.Controllers
 
             public Etiqueta Etiqueta { get; set; }
             public IEnumerable<Etiqueta> EtiquetaTabla { get; set; }
+            public List<int> IdEtiqueta { get; set; }
 
             public Sucursales Sucursal { get; set; }
             public IEnumerable<Sucursales> SucursalTabla { get; set; }
+            public List<int> IdSucursal { get; set; }
 
             public Rubro Rubro { get; set; }
             public IEnumerable<Rubro> RubroTabla { get; set; }
+
+            public IFormFile Imagen { get; set; }
+            public IFormFile Video { get; set; }
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Articulos()
         {
             var articulos = await _VContext.Articulos.ToListAsync();
+            var artisucu = await _VContext.ArticulosPorSucursals.ToListAsync();
+            var artieti = await _VContext.ArticulosEtiquetas.ToListAsync();
             var subrubros = await _VContext.Subrubros.ToListAsync();
             var etiquetas = await _VContext.Etiquetas.ToListAsync();
             var sucursales = await _VContext.Sucusales.ToListAsync();
-            var model = new GestionArticulosViewModel { ArticuloTabla = articulos, SubrubroTabla = subrubros, EtiquetaTabla = etiquetas, SucursalTabla = sucursales };
+
+            var model = new GestionArticulosViewModel { ArticuloTabla = articulos, ArtiSucuTabla = artisucu, ArtiEtiTabla = artieti, SubrubroTabla = subrubros, EtiquetaTabla = etiquetas, SucursalTabla = sucursales };
 
             return View(model);
         }
@@ -327,16 +336,58 @@ namespace CargarCarta.Controllers
         //--
 
         [HttpPost]
-        public async Task<IActionResult> CargarArticulo(GestionArticulosViewModel viewModel, Articulo articulos)
+        public async Task<IActionResult> CargarArticulo(GestionArticulosViewModel viewModel, Articulo articulos, IFormFile imagen, IFormFile video)
         {
+            if (_VContext.Articulos.Any(a => a.Nombre == viewModel.Articulo.Nombre))
+            {
+                ModelState.AddModelError("", "El nombre del artículo ya existe.");
+                return View(viewModel);
+            }
+
+            if (imagen != null && imagen.Length > 0)
+            {
+                using var ms = new MemoryStream();
+                await imagen.CopyToAsync(ms);
+                viewModel.Articulo.Imagen = ms.ToArray();
+            }
+
+            if (video != null && video.Length > 0)
+            {
+                using var ms = new MemoryStream();
+                await video.CopyToAsync(ms);
+                viewModel.Articulo.Video = ms.ToArray();
+            }
+
             _VContext.Articulos.Add(viewModel.Articulo);
             await _VContext.SaveChangesAsync();
             articulos = viewModel.Articulo;
 
+            if (viewModel.IdSucursal != null)
+            {
+                foreach (var idSucursal in viewModel.IdSucursal)
+                {
+                    var articulosPorSucursal = new ArticulosPorSucursal();
+                    articulosPorSucursal.IdArticulo = articulos.IdArticulo;
+                    articulosPorSucursal.IdSucursal = idSucursal;  // Esto es un entero, no una lista
+                    _VContext.ArticulosPorSucursals.Add(articulosPorSucursal);
+                }
+            }
+            await _VContext.SaveChangesAsync();
+
+            if (viewModel.IdEtiqueta != null)
+            {
+                foreach (var idEtiqueta in viewModel.IdEtiqueta)
+                {
+                    var articulosEtiqueta = new ArticulosEtiqueta();
+                    articulosEtiqueta.IdArticulo = articulos.IdArticulo;
+                    articulosEtiqueta.IdEtiqueta = idEtiqueta;
+                    _VContext.ArticulosEtiquetas.Add(articulosEtiqueta);
+                }
+            }
+            await _VContext.SaveChangesAsync();
+
             return RedirectToAction(nameof(Articulos));
         }
-
-
 
         #endregion
 

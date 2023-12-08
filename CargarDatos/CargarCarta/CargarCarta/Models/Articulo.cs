@@ -17,9 +17,9 @@ public partial class Articulo
 
     public string? Receta { get; set; }
 
-    public string? Imagen { get; set; }
+    public byte[]? Imagen { get; set; }
 
-    public string? Video { get; set; }
+    public byte[]? Video { get; set; }
 
     public int? Puntos { get; set; }
 
@@ -30,4 +30,5 @@ public partial class Articulo
     public virtual ICollection<ArticulosPorSucursal> ArticulosPorSucursals { get; set; } = new List<ArticulosPorSucursal>();
 
     public virtual Subrubro? oSubrubro { get; set; }
+
 }

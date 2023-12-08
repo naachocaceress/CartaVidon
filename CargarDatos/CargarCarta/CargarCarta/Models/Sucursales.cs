@@ -10,4 +10,6 @@ public partial class Sucursales
     public string? Nombre { get; set; }
 
     public virtual ICollection<Articulo> Articulo { get; set; } = new List<Articulo>();
+
+    public virtual ICollection<ArticulosPorSucursal> ArticulosPorSucursals { get; set; } = new List<ArticulosPorSucursal>();
 }

@@ -14,4 +14,7 @@ public partial class ArticulosPorSucursal
     public decimal? Precio { get; set; }
 
     public virtual Articulo? oArticulo { get; set; }
+
+    public virtual Sucursales? oSucursales { get; set; }
+
 }

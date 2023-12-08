@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CargarCarta")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+36066ba5d1353c6efd1d1bc2ca9015863eadecf1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b200bdaddc6ddab783f998b23afd159e6c58f81d")]
 [assembly: System.Reflection.AssemblyProductAttribute("CargarCarta")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CargarCarta")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -31,7 +31,7 @@ public partial class Vvoucher2Context : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-    
+
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -51,9 +51,8 @@ public partial class Vvoucher2Context : DbContext
                 .HasColumnName("descripcion");
             entity.Property(e => e.IdSubrubro).HasColumnName("idSubrubro");
             entity.Property(e => e.Imagen)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("imagen");
+                 .HasColumnType("varbinary(max)")
+                 .HasColumnName("imagen");
             entity.Property(e => e.Nombre)
                 .HasMaxLength(100)
                 .IsUnicode(false)
@@ -66,9 +65,8 @@ public partial class Vvoucher2Context : DbContext
                 .HasColumnType("text")
                 .HasColumnName("receta");
             entity.Property(e => e.Video)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("video");
+                 .HasColumnType("varbinary(max)")
+                 .HasColumnName("video");
 
             entity.HasOne(d => d.oSubrubro).WithMany(p => p.Articulos)
                 .HasForeignKey(d => d.IdSubrubro)
@@ -110,6 +108,10 @@ public partial class Vvoucher2Context : DbContext
             entity.HasOne(d => d.oArticulo).WithMany(p => p.ArticulosPorSucursals)
                 .HasForeignKey(d => d.IdArticulo)
                 .HasConstraintName("FK__Articulos__idArt__04AFB25B");
+
+            entity.HasOne(d => d.oSucursales).WithMany(p => p.ArticulosPorSucursals)
+                .HasForeignKey(d => d.IdSucursal)
+                .HasConstraintName("FK__Articulos__idSuc__05A3D694");
         });
 
         modelBuilder.Entity<Etiqueta>(entity =>
